@@ -1,0 +1,9 @@
+.book-card {
+    width: 200px;
+    border: 0;
+}
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
