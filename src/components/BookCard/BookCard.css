@@ -1,9 +1,16 @@
 .book-card {
-    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
     border: 0;
+    cursor: pointer;
 }
+
+.book-card:hover {
+    color: dodgerblue;
+}
+
 .text-ellipsis {
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }

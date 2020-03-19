@@ -6,7 +6,7 @@ import {Card} from "react-bootstrap";
 class BookCard extends React.Component {
     render() {
         return (
-            <Card className="book-card">
+            <Card className="book-card" onClick={this.handleClick}>
                 <div className="d-flex justify-content-center pt-3 pl-3 pr-3">
                     <img src={require("../../images/books/" + this.props.book.image)} alt={this.props.book.title}/>
                 </div>
@@ -19,6 +19,9 @@ class BookCard extends React.Component {
                 </Card.Body>
             </Card>
         );
+    }
+    handleClick = (e) => {
+        console.log(this.props.book.id);
     }
 }
 

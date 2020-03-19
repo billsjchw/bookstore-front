@@ -1,10 +1,10 @@
 import React from 'react';
 import books from "./books";
-import BookCard from "./components/BookCard/BookCard";
+import BookGrid from "./components/BookGrid/BookGrid";
 
 function App() {
   return (
-      <BookCard book={books[0]}/>
+      <BookGrid books={books} colNum={4}/>
   );
 }
 
