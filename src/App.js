@@ -1,10 +1,15 @@
 import React from 'react';
 import books from "./books";
-import BookGrid from "./components/BookGrid/BookGrid";
+import BookList from "./components/BookList/BookList";
 
 function App() {
   return (
-      <BookGrid books={books} colNum={4}/>
+      <BookList
+          books={books}
+          rowNum={1}
+          colNum={4}
+          pageRange={5}
+      />
   );
 }
 

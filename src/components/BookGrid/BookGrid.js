@@ -1,5 +1,5 @@
 import React from "react";
-import '../../bootstrap.css'
+import '../../bootstrap.css';
 import BookCard from "../BookCard/BookCard";
 
 class BookGrid extends React.Component {
@@ -11,7 +11,7 @@ class BookGrid extends React.Component {
                 cards.push(<BookCard key={j} book={this.props.books[i + j]}/>);
             rows.push(<div key={i} className="d-flex">{cards}</div>);
         }
-        return <div>{rows}</div>;
+        return <div className="book-grid">{rows}</div>;
     }
 }
 
