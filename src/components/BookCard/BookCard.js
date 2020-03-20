@@ -1,6 +1,6 @@
 import React from "react";
-import '../../bootstrap.css'
-import './BookCard.css'
+import "../../bootstrap.css"
+import "./BookCard.css"
 import {Card, CardBody, CardText} from "reactstrap";
 
 

@@ -1,15 +1,17 @@
-import React from 'react';
-import books from "./books";
-import BookList from "./components/BookList/BookList";
+import React from "react";
+import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import BooksPage from "./pages/BooksPage/BooksPage";
+import SignInPage from "./pages/SignInPage/SignInPage";
 
 function App() {
   return (
-      <BookList
-          books={books}
-          rowNum={1}
-          colNum={4}
-          pageRange={5}
-      />
+      <BrowserRouter>
+          <Switch>
+              <Route path="/books" component={BooksPage}/>
+              <Route path="/sign-in" component={SignInPage}/>
+              <Redirect from="/*" to="/sign-in"/>
+          </Switch>
+      </BrowserRouter>
   );
 }
 

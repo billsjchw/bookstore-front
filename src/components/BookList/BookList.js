@@ -1,6 +1,6 @@
 import React from "react";
 import "../../bootstrap.css";
-import SearchBar from"../SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import BookGrid from "../BookGrid/BookGrid";
 import Pagination from "react-js-pagination";
 
@@ -20,7 +20,7 @@ class BookList extends React.Component {
             (book) => (book[this.state.search.type].toLowerCase().indexOf(this.state.search.text.toLowerCase()) >= 0)
         );
         return (
-            <div className="d-flex flex-column align-items-center">
+            <div className={"d-flex flex-column align-items-center " + this.props.className}>
                 <SearchBar
                     search={this.state.search}
                     onCommit={this.handleSearchChange}

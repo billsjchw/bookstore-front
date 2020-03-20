@@ -1,13 +1,13 @@
 import React from "react";
-import './SearchBar.css'
+import "./SearchBar.css"
 import {
     InputGroup,
-    Input,
     InputGroupButtonDropdown,
-    InputGroupAddon,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
+    Input,
+    InputGroupAddon,
     Button
 } from "reactstrap";
 
@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
                     isOpen={this.state.open}
                     toggle={this.handleOpenChange}
                 >
-                    <DropdownToggle caret>
+                    <DropdownToggle outline caret>
                         {{title: "Title", author: "Author", isbn: "ISBN"}[this.state.search.type]}
                     </DropdownToggle>
                     <DropdownMenu>
@@ -41,7 +41,7 @@ class SearchBar extends React.Component {
                 </InputGroupButtonDropdown>
                 <Input onChange={this.handleTextChange}/>
                 <InputGroupAddon addonType="append">
-                    <Button onClick={this.handleCommit}>Search</Button>
+                    <Button outline color="success" onClick={this.handleCommit}>Search</Button>
                 </InputGroupAddon>
             </InputGroup>
         );
