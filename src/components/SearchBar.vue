@@ -3,14 +3,14 @@
     <b-input-group class="search-bar">
         <b-input-group-prepend>
             <b-dropdown :text="typeName" variant="outline-secondary">
-                <b-dropdown-item-button v-on:click="type = 'title'">Title</b-dropdown-item-button>
-                <b-dropdown-item-button v-on:click="type = 'author'">Author</b-dropdown-item-button>
-                <b-dropdown-item-button v-on:click="type = 'isbn'">ISBN</b-dropdown-item-button>
+                <b-dropdown-item-button @click="type = 'title'">Title</b-dropdown-item-button>
+                <b-dropdown-item-button @click="type = 'author'">Author</b-dropdown-item-button>
+                <b-dropdown-item-button @click="type = 'isbn'">ISBN</b-dropdown-item-button>
             </b-dropdown>
         </b-input-group-prepend>
         <b-form-input v-model="text"></b-form-input>
         <b-input-group-append>
-            <b-button variant="outline-success" v-on:click="emitCommit">Search</b-button>
+            <b-button variant="outline-success" @click="emitCommit">Search</b-button>
         </b-input-group-append>
     </b-input-group>
 </div>

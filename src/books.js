@@ -1,4 +1,4 @@
-const books = [
+export default [
     {
         isbn: "9780131872486",
         title: "Thinking in Java (Fourth Edition)",
@@ -144,5 +144,3 @@ const books = [
         price: 48357,
     }
 ];
-
-export default books;
