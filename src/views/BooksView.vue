@@ -13,7 +13,7 @@ import BookList from "@/components/BookList";
 import books from "@/books";
 
 export default {
-    name: "BooksPage",
+    name: "BooksView",
     components: {
         "book-list": BookList
     },

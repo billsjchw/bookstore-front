@@ -8,7 +8,7 @@
 import LoginPanel from "@/components/LoginPanel";
 
 export default {
-    name: "LoginPage",
+    name: "LoginView",
     components: {
         "login-panel": LoginPanel
     }
