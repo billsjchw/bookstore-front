@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="books-view">
     <book-list
         :books="books"
         :row-num="rowNum"
@@ -26,3 +26,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.books-view {
+    min-width: fit-content;
+}
+</style>

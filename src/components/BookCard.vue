@@ -34,28 +34,28 @@ export default {
     },
     methods: {
         handleClick: function() {
-            window.location.href = "/books/" + this.book.isbn;
+            window.open("/books/" + this.book.isbn, "_blank");
         }
     }
 };
 </script>
 
 <style scoped>
-    .book-card {
-        min-width: 200px;
-        max-width: 200px;
-        border: 0;
-        cursor: pointer;
-    }
-    .book-card:hover {
-        color: dodgerblue;
-    }
-    .book-card .book-card-image {
-        height: 200px;
-    }
-    .book-card .book-card-text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+.book-card {
+    min-width: 200px;
+    max-width: 200px;
+    border: 0;
+    cursor: pointer;
+}
+.book-card:hover {
+    color: dodgerblue;
+}
+.book-card .book-card-image {
+    height: 200px;
+}
+.book-card .book-card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>

@@ -1,6 +1,9 @@
 <template>
-<div class="d-flex justify-content-center align-items-start">
-    <img :src="image" :alt="book.title">
+<div class="detail-view d-flex justify-content-center align-items-start">
+    <div class="d-flex flex-column align-items-center">
+        <img class="mt-3" :src="image" :alt="book.title">
+        <add-to-cart class="mt-2" :isbn="book.isbn"/>
+    </div>
     <book-info class="ml-3" :book="book"/>
 </div>
 </template>
@@ -8,10 +11,13 @@
 <script>
 import BookInfo from "@/components/BookInfo";
 import books from "@/books";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AddToCart from "@/components/AddToCart";
 
 export default {
     name: "DetailView",
     components: {
+        "add-to-cart": AddToCart,
         "book-info": BookInfo
     },
     data: function() {
@@ -28,3 +34,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.detail-view {
+    min-width: fit-content;
+}
+</style>

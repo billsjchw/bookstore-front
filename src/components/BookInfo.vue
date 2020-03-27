@@ -5,9 +5,9 @@
     <p><b>Price:</b> {{(book.price / 100).toFixed(2)}}</p>
     <p><b>Stock:</b> {{book.stock}}</p>
     <p><b>ISBN:</b> {{book.isbn}}</p>
+    <p><b>Language:</b> {{book.lang}}</p>
     <p><b>Press:</b> {{book.press}}</p>
     <p><b>Publication date:</b> {{book.date}}</p>
-    <p><b>Language:</b> {{book.lang}}</p>
     <p>
         <b>Introduction:</b><br/>
         <span v-html="book.intro.replace(/\n/g, '\u003cbr/\u003e')"/>

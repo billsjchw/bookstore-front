@@ -1,5 +1,5 @@
 <template>
-<div class="h-100 d-flex justify-content-center align-items-center bg-light">
+<div class="login-view h-100 d-flex justify-content-center align-items-center bg-light">
     <login-panel/>
 </div>
 </template>
@@ -14,3 +14,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.login-view {
+    min-width: fit-content;
+}
+</style>
