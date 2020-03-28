@@ -3,8 +3,8 @@
     <img class="login-panel-logo mb-3" :src="require('../assets/icons/books.png')" alt="books"/>
     <h1 class="login-panel-title h3 mb-3">e-Book</h1>
     <div class="w-100 mb-3">
-        <input class="form-control form-control-lg login-panel-username" type="text" placeholder="Username" ref="username"/>
-        <input class="form-control form-control-lg login-panel-password" type="password" placeholder="Password" ref="password"/>
+        <b-form-input class="login-panel-username" size="lg" type="text" placeholder="Username" v-model="username"/>
+        <b-form-input class="login-panel-password" size="lg" type="password" placeholder="Password" v-model="password"/>
     </div>
     <b-button block size="lg" variant="primary" @click="handleCommit">Sign in</b-button>
     <div class="mt-5 mb-3"></div>
@@ -12,20 +12,25 @@
 </template>
 
 <script>
-import {BButton} from "bootstrap-vue";
+import {BButton, BFormInput} from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.min.css";
 
 export default {
     name: "LoginPanel",
     components: {
-        "b-button": BButton
+        "b-button": BButton,
+        "b-form-input": BFormInput
+    },
+    data: function() {
+        return {
+            username: "",
+            password: ""
+        };
     },
     methods: {
         handleCommit: function() {
-            let username = this.$refs["username"].value;
-            let password = this.$refs["password"].value;
-            console.log(`Login: username=${username}, password=${password}`);
+            console.log(`Login: username="${this.username}", password="${this.password}"`);
             window.location.href = "/books";
         }
     }

@@ -2,7 +2,7 @@
 <div class="book-info">
     <h1>{{book.title}}</h1>
     <p><b>Author:</b> {{book.author}}</p>
-    <p><b>Price:</b> {{(book.price / 100).toFixed(2)}}</p>
+    <p><b>Price:</b> &yen;{{(book.price / 100).toFixed(2)}}</p>
     <p><b>Stock:</b> {{book.stock}}</p>
     <p><b>ISBN:</b> {{book.isbn}}</p>
     <p><b>Language:</b> {{book.lang}}</p>

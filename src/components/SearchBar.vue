@@ -8,7 +8,7 @@
                 <b-dropdown-item-button @click="type = 'isbn'">ISBN</b-dropdown-item-button>
             </b-dropdown>
         </b-input-group-prepend>
-        <input class="form-control" ref="text"/>
+        <b-form-input v-model="text"/>
         <b-input-group-append>
             <b-button variant="outline-success" @click="emitCommit">Search</b-button>
         </b-input-group-append>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {BInputGroup, BInputGroupPrepend, BDropdown, BDropdownItemButton, BInputGroupAppend, BButton} from "bootstrap-vue";
+import {BInputGroup, BInputGroupPrepend, BDropdown, BDropdownItemButton, BFormInput, BInputGroupAppend, BButton} from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.min.css"
 
@@ -33,12 +33,14 @@ export default {
         "b-input-group-prepend": BInputGroupPrepend,
         "b-dropdown": BDropdown,
         "b-dropdown-item-button": BDropdownItemButton,
+        "b-form-input": BFormInput,
         "b-input-group-append": BInputGroupAppend,
         "b-button": BButton
     },
     data: function() {
         return {
-            type: this.search.type
+            type: this.search.type,
+            text: this.search.text
         };
     },
     computed: {
@@ -56,7 +58,7 @@ export default {
                 "commit",
                 {
                     type: this.type,
-                    text: this.$refs["text"].value
+                    text: this.text
                 }
             );
         }

@@ -7,6 +7,8 @@
 
 <script>
 import {BFormSpinbutton, BButton} from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-vue/dist/bootstrap-vue.min.css";
 
 export default {
     name: "AddToCart",
@@ -23,6 +25,7 @@ export default {
     methods: {
         handleCommit: function() {
             console.log(`Add to cart: isbn=${this.isbn}, num=${this.num}`);
+            alert(`The book${this.num > 1 ? "s have" : " has"} been added to your cart`);
         }
     }
 };
