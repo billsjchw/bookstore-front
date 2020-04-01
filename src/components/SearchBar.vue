@@ -10,7 +10,7 @@
         </b-input-group-prepend>
         <b-form-input v-model="text"/>
         <b-input-group-append>
-            <b-button variant="outline-success" @click="emitCommit">Search</b-button>
+            <b-button variant="outline-secondary" @click="emitCommit">&#x1f50d;</b-button>
         </b-input-group-append>
     </b-input-group>
 </div>

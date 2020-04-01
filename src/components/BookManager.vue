@@ -16,12 +16,8 @@
         :current-page="page"
     >
         <template v-slot:cell(info)="row">
-            <div class="d-flex justify-content-center">
-                <font-awesome-icon
-                    class="book-manager-table-icon"
-                    icon="ellipsis-h"
-                    @click="handleShowInfo(row.item.isbn)"
-                />
+            <div class="d-flex justify-content-center align-items-center">
+                <span class="book-manager-table-icon" @click="handleShowInfo(row.item.isbn)">&#8943;</span>
             </div>
         </template>
         <template v-slot:cell(price)="row">
@@ -29,16 +25,13 @@
         </template>
         <template v-slot:cell(operations)="row">
             <div class="d-flex justify-content-center">
-                <font-awesome-icon
-                    class="book-manager-table-icon"
-                    icon="pen"
-                    @click="handleEditInfo(row.item.isbn)"
-                />
-                <font-awesome-icon
-                    class="book-manager-table-icon ml-1"
-                    icon="trash-alt"
-                    @click="handleDeleteBook(row.item.isbn)"
-                />
+<!--                <font-awesome-icon-->
+<!--                    class="book-manager-table-icon"-->
+<!--                    icon="pen"-->
+<!--                    @click="handleEditInfo(row.item.isbn)"-->
+<!--                />-->
+                <span class="book-manager-table-icon" @click="handleEditInfo(row.item.isbn)">&#9999;</span>
+                <span class="book-manager-table-icon" @click="handleDeleteBook(row.item.isbn)">&#128465;</span>
             </div>
         </template>
     </b-table>

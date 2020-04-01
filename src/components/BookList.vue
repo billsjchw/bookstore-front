@@ -18,16 +18,18 @@
 <script>
 import SearchBar from "@/components/SearchBar";
 import BookGrid from "@/components/BookGrid";
+import books from "@/books";
 
 export default {
     name: "BookList",
-    props: ["books", "rowNum", "colNum"],
+    props: ["rowNum", "colNum"],
     components: {
         "search-bar": SearchBar,
         "book-grid": BookGrid,
     },
     data: function() {
         return {
+            books: books,
             page: 1,
             search: {
                 type: "title",
