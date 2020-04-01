@@ -17,10 +17,6 @@
 </template>
 
 <script>
-import {BInputGroup, BInputGroupPrepend, BDropdown, BDropdownItemButton, BFormInput, BInputGroupAppend, BButton} from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-vue/dist/bootstrap-vue.min.css"
-
 export default {
     name: "SearchBar",
     model: {
@@ -28,15 +24,6 @@ export default {
         event: "commit"
     },
     props: ["search"],
-    components: {
-        "b-input-group": BInputGroup,
-        "b-input-group-prepend": BInputGroupPrepend,
-        "b-dropdown": BDropdown,
-        "b-dropdown-item-button": BDropdownItemButton,
-        "b-form-input": BFormInput,
-        "b-input-group-append": BInputGroupAppend,
-        "b-button": BButton
-    },
     data: function() {
         return {
             type: this.search.type,

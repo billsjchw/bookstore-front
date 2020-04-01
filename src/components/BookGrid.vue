@@ -8,7 +8,6 @@
 
 <script>
 import BookCard from "@/components/BookCard";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export default {
     name: "BookGrid",

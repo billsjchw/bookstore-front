@@ -2,7 +2,7 @@
 <b-modal class="book-editor" scrollable no-close-on-backdrop title="Edit the information" ref="modal">
     <div class="d-flex justify-content-between">
         <label><b>ISBN:</b></label>
-        <span>{{book.isbn}}</span>
+        <span>{{isbn}}</span>
     </div>
     <div class="d-flex justify-content-between mt-2">
         <label><b>Title:</b></label>
@@ -47,35 +47,29 @@
 </template>
 
 <script>
-import {BModal, BFormInput, BFormFile, BFormTextarea, BButton} from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-vue/dist/bootstrap-vue.min.css";
+import Book from "@/Book";
 
 export default {
     name: "Editor",
-    props: ["book"],
-    components: {
-        "b-modal": BModal,
-        "b-form-input": BFormInput,
-        "b-form-file": BFormFile,
-        "b-form-textarea": BFormTextarea,
-        "b-button": BButton
-    },
     data: function() {
         return {
-            title: this.book.title,
-            author: this.book.author,
+            isbn: "",
+            title: "",
+            author: "",
             cover: null,
-            price: this.book.price,
-            press: this.book.press,
-            date: this.book.date,
-            lang: this.book.lang,
-            stock: this.book.stock,
-            intro: this.book.intro
+            price: "",
+            press: "",
+            date: "",
+            lang: "",
+            stock: "",
+            intro: ""
         };
     },
     methods: {
-        show: function() {
+        show: function(book) {
+            for (let prop in book)
+                this[prop] = book[prop];
+            this.cover = null;
             this.$refs["modal"].show();
         },
         handleCommit: function() {
@@ -97,8 +91,9 @@ export default {
                 alert("Stock should be a non-negative integer less than 1000000000");
                 return;
             }
+            let book = new Book(this);
             this.$refs["modal"].hide();
-            alert("Edition completed successfully");
+            this.$emit("edition-success", book);
         }
     }
 };

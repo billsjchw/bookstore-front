@@ -12,16 +12,8 @@
 </template>
 
 <script>
-import {BButton, BFormInput} from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-vue/dist/bootstrap-vue.min.css";
-
 export default {
     name: "LoginPanel",
-    components: {
-        "b-button": BButton,
-        "b-form-input": BFormInput
-    },
     data: function() {
         return {
             username: "",
