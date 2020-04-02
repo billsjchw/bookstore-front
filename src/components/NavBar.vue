@@ -5,9 +5,9 @@
             Bookstore
         </b-navbar-brand>
         <b-navbar-nav>
-            <b-nav-item href="/books" active>&#128218;Books</b-nav-item>
-            <b-nav-item href="/cart">&#128722;Cart</b-nav-item>
-            <b-nav-item href="/orders">&#128203;Orders</b-nav-item>
+            <b-nav-item href="/books" :active="activeItem === 'books'">&#128218;Books</b-nav-item>
+            <b-nav-item href="/cart" :active="activeItem === 'cart'">&#128722;Cart</b-nav-item>
+            <b-nav-item href="/orders" :active="activeItem === 'orders'">&#128203;Orders</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown right>
@@ -29,6 +29,8 @@
 
 <script>
 export default {
+    name: "NavBar",
+    props: ["activeItem"],
     methods: {
         handleSignOut: function() {
             console.log("Sign out");

@@ -1,47 +1,51 @@
 <template>
 <div class="book-manager d-flex flex-column align-items-center">
-    <search-bar
-        class="mb-3"
-        v-model="search"
-    />
-    <b-table
-        class="book-manager-table"
-        striped
-        sticky-header
-        :fields="fields"
-        :items="items"
-        :filter="search"
-        :filter-function="matches"
-        :per-page="perPage"
-        :current-page="page"
-    >
-        <template v-slot:cell(info)="row">
-            <div class="d-flex justify-content-center align-items-center">
-                <span class="book-manager-table-icon" @click="handleShowInfo(row.item.isbn)">&#8943;</span>
-            </div>
-        </template>
-        <template v-slot:cell(price)="row">
-            &yen;{{(row.item.price / 100).toFixed(2)}}
-        </template>
-        <template v-slot:cell(operations)="row">
-            <div class="d-flex justify-content-center">
-<!--                <font-awesome-icon-->
-<!--                    class="book-manager-table-icon"-->
-<!--                    icon="pen"-->
-<!--                    @click="handleEditInfo(row.item.isbn)"-->
-<!--                />-->
-                <span class="book-manager-table-icon" @click="handleEditInfo(row.item.isbn)">&#9999;</span>
-                <span class="book-manager-table-icon" @click="handleDeleteBook(row.item.isbn)">&#128465;</span>
-            </div>
-        </template>
-    </b-table>
+    <div>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="book-manager-button-group"></div>
+            <search-bar v-model="search"/>
+            <b-button-group class="book-manager-button-group">
+                <b-button variant="secondary" @click="handleRefresh"><b-icon icon="arrow-repeat"/></b-button>
+                <b-button variant="secondary" @click="handleAddBook"><b-icon icon="file-plus"/></b-button>
+            </b-button-group>
+        </div>
+        <b-table
+            class="book-manager-table mt-1"
+            striped
+            sticky-header
+            :fields="fields"
+            :items="items"
+            :filter="search"
+            :filter-function="matches"
+            :per-page="perPage"
+            :current-page="page"
+        >
+            <template v-slot:cell(info)="row">
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="book-manager-table-icon" @click="handleShowInfo(row.item.isbn)">&#8943;</span>
+                </div>
+            </template>
+            <template v-slot:cell(price)="row">
+                &yen;{{(row.item.price / 100).toFixed(2)}}
+            </template>
+            <template v-slot:cell(operations)="row">
+                <div class="d-flex justify-content-center">
+                    <span class="book-manager-table-icon" @click="handleEditInfo(row.item.isbn)">&#9999;</span>
+                    <span class="book-manager-table-icon" @click="handleDeleteBook(row.item.isbn)">&#128465;</span>
+                </div>
+            </template>
+        </b-table>
+    </div>
     <b-pagination
-        class=""
         v-model="page"
         :total-rows="items.length"
         :per-page="perPage"
     />
-    <info-editor v-on:edition-success="handleEditionSuccess" ref="editor"/>
+    <info-editor
+        v-on:edition-success="handleEditionSuccess"
+        v-on:addition-success="handleAdditionSuccess"
+        ref="editor"
+    />
 </div>
 </template>
 
@@ -80,6 +84,12 @@ export default {
         matches: function(book, filter) {
             return book[filter.type].toLowerCase().indexOf(filter.text.toLowerCase()) >= 0;
         },
+        handleRefresh: function() {
+            this.items = JSON.parse(JSON.stringify(books));
+        },
+        handleAddBook: function() {
+            this.$refs["editor"].show();
+        },
         handleShowInfo: function(isbn) {
             window.open("/books/" + isbn);
         },
@@ -95,12 +105,24 @@ export default {
             let isbn = book.isbn;
             let index = this.items.findIndex(book => (book.isbn === isbn));
             this.$set(this.items, index, book);
+        },
+        handleAdditionSuccess: function(book) {
+            let isbn = book.isbn;
+            let index = this.items.findIndex(book => (book.isbn === isbn));
+            if (index >= 0)
+                this.$set(this.items, index, book);
+            else
+                this.items.push(book);
         }
     }
 };
 </script>
 
 <style scoped>
+.book-manager .book-manager-button-group {
+    min-width: 92px;
+    max-width: 92px;
+}
 .book-manager .book-manager-table {
     min-width: 1000px;
     max-width: 1000px;

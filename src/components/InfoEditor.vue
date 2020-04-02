@@ -1,41 +1,45 @@
 <template>
 <div>
-    <b-modal class="book-editor" scrollable no-close-on-backdrop title="Edit the information" ref="modal">
+    <b-modal class="info-editor" scrollable no-close-on-backdrop :title="modalTitle" ref="modal">
         <div class="d-flex justify-content-between">
-            <label><b>ISBN:</b></label>
-            <span>{{isbn}}</span>
+            <label class="d-block"><b>ISBN:</b></label>
+            <div v-if="editionMode">{{isbn}}</div>
+            <b-form-input v-else class="info-editor-input" type="text" v-model="isbn"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Title:</b></label>
-            <b-form-input class="book-editor-input" type="text" v-model="title"/>
+            <label class="d-block"><b>Title:</b></label>
+            <b-form-input class="info-editor-input" type="text" v-model="title"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Author:</b></label>
-            <b-form-input class="book-editor-input" type="text" v-model="author"/>
+            <label class="d-block"><b>Author:</b></label>
+            <b-form-input class="info-editor-input" type="text" v-model="author"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Cover:</b></label>
-            <b-form-file class="book-editor-input" accept=".jpg" v-model="cover"/>
+            <label class="d-block"><b>Cover:</b></label>
+            <div class="info-editor-input d-flex">
+                <b-form-file accept=".jpg" :placeholder="coverInputPlaceHolder" v-model="cover"/>
+                <b-icon class="h-100 ml-1" icon="backspace" @click="handleClearCover"/>
+            </div>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Price (cent):</b></label>
-            <b-form-input class="book-editor-input" type="number" v-model="price"/>
+            <label class="d-block"><b>Price (cent):</b></label>
+            <b-form-input class="info-editor-input" type="number" number v-model="price"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Stock:</b></label>
-            <b-form-input class="book-editor-input" type="number" v-model="stock"/>
+            <label class="d-block"><b>Stock:</b></label>
+            <b-form-input class="info-editor-input" type="number" number v-model="stock"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Language:</b></label>
-            <b-form-input class="book-editor-input" type="text" v-model="lang"/>
+            <label class="d-block"><b>Language:</b></label>
+            <b-form-input class="info-editor-input" type="text" v-model="lang"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Press:</b></label>
-            <b-form-input class="book-editor-input" type="text" v-model="press"/>
+            <label class="d-block"><b>Press:</b></label>
+            <b-form-input class="info-editor-input" type="text" v-model="press"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <label><b>Publication date:</b></label>
-            <b-form-input class="book-editor-input" type="date" v-model="date"/>
+            <label class="d-block"><b>Publication date:</b></label>
+            <b-form-input class="info-editor-input" type="date" v-model="date"/>
         </div>
         <div class="mt-2">
             <label class="d-block"><b>Introduction:</b></label>
@@ -52,61 +56,105 @@
 import Book from "@/Book";
 
 export default {
-    name: "Editor",
+    name: "InfoEditor",
     data: function() {
         return {
             isbn: "",
             title: "",
             author: "",
             cover: null,
-            price: "",
+            price: 0,
             press: "",
-            date: "",
+            date: "1970-01-01",
             lang: "",
-            stock: "",
-            intro: ""
+            stock: 0,
+            intro: "",
+            editionMode: true
         };
+    },
+    computed: {
+        modalTitle: function() {
+            return this.editionMode ? "Edit the information" : "Add a new book";
+        },
+        coverInputPlaceHolder: function() {
+            return this.editionMode ? "Original cover" : "No file chosen";
+        }
     },
     methods: {
         show: function(book) {
+            this.editionMode = book !== undefined;
+            if (book === undefined)
+                book = new Book();
             for (let prop in book)
                 this[prop] = book[prop];
             this.cover = null;
             this.$refs["modal"].show();
         },
+        handleClearCover: function() {
+            this.cover = null;
+        },
         handleCommit: function() {
-            let price = Number(this.price);
-            if (Number.isNaN(price)) {
+            if (!this.editionMode && !this.isValidISBN(this.isbn)) {
+                alert("Invalid ISBN");
+                return;
+            }
+            if (typeof(this.price) !== "number" || Number.isNaN(this.price)) {
                 alert("Price should be a number");
                 return;
             }
-            if (!Number.isInteger(price) || price < 0 || price >= 1000000000) {
+            if (!Number.isInteger(this.price) || this.price < 0 || this.price >= 1000000000) {
                 alert("Price should be a non-negative integer less than 1000000000");
                 return;
             }
-            let stock = Number(this.stock);
-            if (Number.isNaN(stock)) {
+            if (typeof(this.stock) !== "number" || Number.isNaN(this.stock)) {
                 alert("Stock should be a number");
                 return;
             }
-            if (!Number.isInteger(stock) || stock < 0 || stock >= 1000000000) {
+            if (!Number.isInteger(this.stock) || this.stock < 0 || this.stock >= 1000000000) {
                 alert("Stock should be a non-negative integer less than 1000000000");
+                return;
+            }
+            if (this.date === "") {
+                alert("Wrong publication date");
+                return;
+            }
+            if (!this.editionMode && this.cover === null) {
+                alert("No cover chosen");
                 return;
             }
             let book = new Book(this);
             this.$refs["modal"].hide();
-            this.$emit("edition-success", book);
+            if (this.editionMode)
+                this.$emit("edition-success", book);
+            else
+                this.$emit("addition-success", book);
+        },
+        isValidISBN: function(isbn) {
+            if (!/^\d{12}[\d|X]$/.test(isbn))
+                return false;
+            if (isbn.slice(0, 3) !== "978")
+                return false;
+            let code = 0;
+            for (let i = 0; i < 9; ++i)
+                code += Number(isbn[i + 3]) * (10 - i);
+            code = 11 - code % 11;
+            if (code === 11)
+                return isbn[12] === "0";
+            else if (code === 10)
+                return isbn[12] === "X";
+            else
+                return Number(isbn[12]) === code;
         }
     }
 };
 </script>
 
 <style scoped>
-.book-editor {
+.info-editor {
     min-width: 500px;
     max-width: 500px;
 }
-.book-editor-input {
+.info-editor-input {
     min-width: 300px;
     max-width: 300px;
 }

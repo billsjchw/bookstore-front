@@ -1,6 +1,6 @@
 <template>
 <div class="books-view">
-    <nav-bar/>
+    <nav-bar active-item="books"/>
     <book-list
         class="mt-3"
         :books="books"

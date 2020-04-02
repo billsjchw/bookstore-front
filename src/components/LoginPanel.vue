@@ -7,7 +7,7 @@
         <b-form-input class="login-panel-password" size="lg" type="password" placeholder="Password" v-model="password"/>
     </div>
     <b-button block size="lg" variant="primary" @click="handleCommit">Sign in</b-button>
-    <div class="mt-5 mb-3"></div>
+    <div class="mt-3 mb-5"><a href="/register">Create an account</a></div>
 </div>
 </template>
 
