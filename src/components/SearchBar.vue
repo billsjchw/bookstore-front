@@ -10,17 +10,13 @@
         </b-input-group-prepend>
         <b-form-input v-model="text"/>
         <b-input-group-append>
-            <b-button variant="outline-success" @click="emitCommit">Search</b-button>
+            <b-button variant="outline-secondary" @click="emitCommit">&#x1f50d;</b-button>
         </b-input-group-append>
     </b-input-group>
 </div>
 </template>
 
 <script>
-import {BInputGroup, BInputGroupPrepend, BDropdown, BDropdownItemButton, BFormInput, BInputGroupAppend, BButton} from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-vue/dist/bootstrap-vue.min.css"
-
 export default {
     name: "SearchBar",
     model: {
@@ -28,15 +24,6 @@ export default {
         event: "commit"
     },
     props: ["search"],
-    components: {
-        "b-input-group": BInputGroup,
-        "b-input-group-prepend": BInputGroupPrepend,
-        "b-dropdown": BDropdown,
-        "b-dropdown-item-button": BDropdownItemButton,
-        "b-form-input": BFormInput,
-        "b-input-group-append": BInputGroupAppend,
-        "b-button": BButton
-    },
     data: function() {
         return {
             type: this.search.type,

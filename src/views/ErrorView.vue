@@ -1,14 +1,18 @@
 <template>
 <div>
+    <nav-bar/>
     <h1 class="error-view h2">{{decodeURI($route.params.err)}}</h1>
 </div>
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "@/components/NavBar";
 
 export default {
-    name: "ErrorView"
+    name: "ErrorView",
+    components: {
+        "nav-bar": NavBar
+    }
 };
 </script>
 

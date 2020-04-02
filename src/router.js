@@ -1,16 +1,18 @@
 import VueRouter from "vue-router"
 import LoginView from "@/views/LoginView";
 import BooksView from "@/views/BooksView";
-import DetailView from "@/views/DetailView";
+import InfoView from "@/views/InfoView";
 import ErrorView from "@/views/ErrorView";
+import BookAdminView from "@/views/BookAdminView";
 
 export default new VueRouter({
     mode: "history",
     routes: [
         {path: "/login", component: LoginView},
         {path: "/books", component: BooksView},
-        {path: "/books/:isbn", component: DetailView},
+        {path: "/books/:isbn", component: InfoView},
         {path: "/errors/:err", component: ErrorView},
-        {path: "/", redirect: "/login"}
+        {path: "/book-admin", component: BookAdminView},
+        {path: "/*", redirect: "/login"}
     ]
 });

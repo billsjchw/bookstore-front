@@ -16,17 +16,9 @@
 </template>
 
 <script>
-import {BCard, BCardBody, BCardText} from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 export default {
     name: "BookCard",
     props: ["book"],
-    components: {
-        "b-card": BCard,
-        "b-card-body": BCardBody,
-        "b-card-text": BCardText
-    },
     computed: {
         image: function() {
             return require("../assets/books/" + this.book.isbn + ".jpg");
