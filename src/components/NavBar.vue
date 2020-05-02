@@ -28,13 +28,18 @@
 </template>
 
 <script>
+import LogoutRequest from "@/requests/LogoutRequest";
+
 export default {
     name: "NavBar",
     props: ["activeItem"],
     methods: {
-        handleSignOut: function() {
-            console.log("Sign out");
-            window.location.href = "/login";
+        handleSignOut() {
+            LogoutRequest.logout(() => {
+                sessionStorage.removeItem("user");
+                sessionStorage.removeItem("role");
+                window.location.href = "/login";
+            })
         }
     }
 };

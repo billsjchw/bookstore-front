@@ -18,22 +18,22 @@ import BookInfo from "@/components/BookInfo";
 import books from "@/books";
 
 export default {
-    name: "DetailView",
+    name: "BookView",
     components: {
         "nav-bar": NavBar,
         "add-to-cart": AddToCart,
         "book-info": BookInfo
     },
-    data: function() {
+    data() {
         let book = books.find(book => (book.isbn === this.$route.params.isbn));
         if (book === undefined)
-            window.location.href = encodeURI(`/errors/The book is not found`);
+            window.location.href = encodeURI(`/error/The book is not found`);
         return {
             book: book
         };
     },
     computed: {
-        image: function() {
+        image() {
             return require("../assets/books/" + this.book.isbn + ".jpg");
         }
     }

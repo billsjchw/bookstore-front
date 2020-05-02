@@ -27,7 +27,7 @@ export default {
         "search-bar": SearchBar,
         "book-grid": BookGrid,
     },
-    data: function() {
+    data() {
         return {
             books: books,
             page: 1,
@@ -38,12 +38,12 @@ export default {
         };
     },
     computed: {
-        selBooks: function() {
+        selBooks() {
             return this.books.filter(
                 (book) => (book[this.search.type].toLowerCase().indexOf(this.search.text.toLowerCase()) >= 0)
             );
         },
-        curBooks: function() {
+        curBooks() {
             return this.selBooks.slice(
                 (this.page - 1) * this.rowNum * this.colNum,
                 (this.page) * this.rowNum * this.colNum

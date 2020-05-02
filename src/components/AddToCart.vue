@@ -9,13 +9,13 @@
 export default {
     name: "AddToCart",
     props: ["isbn"],
-    data: function() {
+    data() {
         return {
             num: 1
         };
     },
     methods: {
-        handleCommit: function() {
+        handleCommit() {
             console.log(`Add to cart: isbn=${this.isbn}, num=${this.num}`);
             this.$bvToast.toast(
                 `The book${this.num > 1 ? "s have" : " has"} been added to your cart`,

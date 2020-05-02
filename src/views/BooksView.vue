@@ -21,7 +21,7 @@ export default {
         "nav-bar": NavBar,
         "book-list": BookList
     },
-    data: function() {
+    data() {
         return {
             books: books,
             rowNum: 2,

@@ -20,12 +20,12 @@ export default {
     name: "BookCard",
     props: ["book"],
     computed: {
-        image: function() {
+        image() {
             return require("../assets/books/" + this.book.isbn + ".jpg");
         }
     },
     methods: {
-        handleClick: function() {
+        handleClick() {
             window.open("/books/" + this.book.isbn, "_blank");
         }
     }
