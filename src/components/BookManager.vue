@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import books from "@/books";
 import SearchBar from "@/components/SearchBar";
 import InfoEditor from "@/components/InfoEditor";
 import AddBook from "@/components/AddBook";
+import BookRequest from "@/requests/BookRequest";
 
 export default {
     name: "BookManager",
@@ -81,16 +81,25 @@ export default {
                 {key: "stock", label: "Stock", sortable: true},
                 {key: "operations", label: "Operations", sortable: false}
             ],
-            items: JSON.parse(JSON.stringify(books)),
+            items: [],
             page: 1
         };
     },
+    created() {
+        this.fetchData();
+    },
     methods: {
+        fetchData() {
+            BookRequest.findAllBooks(msg => {
+                if (msg.status === "SUCCESS")
+                    this.items = msg.data;
+            });
+        },
         matches(book, filter) {
             return book[filter.type].toLowerCase().indexOf(filter.text.toLowerCase()) >= 0;
         },
         handleRefresh() {
-            this.items = JSON.parse(JSON.stringify(books));
+            this.fetchData();
         },
         handleAddBook() {
             this.$refs["add-book"].show();

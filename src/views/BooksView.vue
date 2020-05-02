@@ -3,7 +3,6 @@
     <nav-bar active-item="books"/>
     <book-list
         class="mt-3"
-        :books="books"
         :row-num="rowNum"
         :col-num="colNum"
     />
@@ -13,7 +12,6 @@
 <script>
 import NavBar from "@/components/NavBar";
 import BookList from "@/components/BookList";
-import books from "@/books";
 
 export default {
     name: "BooksView",
@@ -23,7 +21,6 @@ export default {
     },
     data() {
         return {
-            books: books,
             rowNum: 2,
             colNum: 4
         };

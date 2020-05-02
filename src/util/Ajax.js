@@ -29,16 +29,16 @@ const Ajax = {
             },
             body: JSON.stringify(body)
         }).then(resp => {
-            if (resp.status !== HttpRespStat.SUCCESS)
-                return Promise.reject(resp);
+            if (resp.status === HttpRespStat.UNAUTHORIZED) {
+                callback(new Message("UNAUTHORIZED", null));
+                return Promise.reject();
+            } else if (resp.status !== HttpRespStat.SUCCESS) {
+                callback(new Message("UNKNOWN_HTTP_ERROR", null));
+                return Promise.reject();
+            }
             return resp.json();
         }).then(msg => {
             callback(msg);
-        }).catch(resp => {
-            if (resp.status === HttpRespStat.UNAUTHORIZED)
-                callback(new Message("UNAUTHORIZED", null));
-            else
-                callback(new Message("UNKNOWN_HTTP_ERROR", null));
         });
     }
 }
