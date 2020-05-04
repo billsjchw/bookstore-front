@@ -12,18 +12,46 @@
 </template>
 
 <script>
+import LoginRequest from "@/requests/LoginRequest";
+
 export default {
     name: "LoginPanel",
-    data: function() {
+    data() {
         return {
             username: "",
             password: ""
         };
     },
     methods: {
-        handleCommit: function() {
-            console.log(`Login: username="${this.username}", password="${this.password}"`);
-            window.location.href = "/books";
+        handleCommit() {
+            let user = btoa(`${this.username}:${this.password}`);
+            sessionStorage.setItem("user", user);
+            LoginRequest.login((msg) => {
+                if (msg.status === "SUCCESS") {
+                    sessionStorage.setItem("admin", msg.data);
+                    window.location.href = "/books";
+                } else if (msg.status === "UNAUTHORIZED") {
+                    sessionStorage.removeItem("user");
+                    this.$bvToast.toast(
+                        "Wrong username/password",
+                        {
+                            title: "Sign in - Failure",
+                            variant: "danger",
+                            autoHideDelay: 2500
+                        }
+                    );
+                } else {
+                    sessionStorage.removeItem("user");
+                    this.$bvToast.toast(
+                        "Unknown error",
+                        {
+                            title: "Sign in - Failure",
+                            variant: "danger",
+                            autoHideDelay: 2500
+                        }
+                    );
+                }
+            });
         }
     }
 };

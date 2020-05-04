@@ -20,13 +20,13 @@ export default {
     name: "BookCard",
     props: ["book"],
     computed: {
-        image: function() {
+        image() {
             return require("../assets/books/" + this.book.isbn + ".jpg");
         }
     },
     methods: {
-        handleClick: function() {
-            window.open("/books/" + this.book.isbn, "_blank");
+        handleClick() {
+            window.open(`/book/${this.book.isbn}`, "_blank");
         }
     }
 };
@@ -43,7 +43,8 @@ export default {
     color: dodgerblue;
 }
 .book-card .book-card-image {
-    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
 }
 .book-card .book-card-text {
     overflow: hidden;

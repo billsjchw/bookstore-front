@@ -35,33 +35,38 @@
                 </div>
             </template>
         </b-table>
+        <b-pagination
+            v-model="page"
+            :total-rows="items.length"
+            :per-page="perPage"
+        />
     </div>
-    <b-pagination
-        v-model="page"
-        :total-rows="items.length"
-        :per-page="perPage"
-    />
     <info-editor
         v-on:edition-success="handleEditionSuccess"
         v-on:addition-success="handleAdditionSuccess"
         ref="editor"
     />
+    <add-book
+        ref="add-book"
+    />
 </div>
 </template>
 
 <script>
-import books from "@/books";
 import SearchBar from "@/components/SearchBar";
 import InfoEditor from "@/components/InfoEditor";
+import AddBook from "@/components/AddBook";
+import BookRequest from "@/requests/BookRequest";
 
 export default {
     name: "BookManager",
     props: ["perPage"],
     components: {
+        "add-book": AddBook,
         "search-bar": SearchBar,
         "info-editor": InfoEditor
     },
-    data: function() {
+    data() {
         return {
             search: {
                 type: "title",
@@ -76,37 +81,46 @@ export default {
                 {key: "stock", label: "Stock", sortable: true},
                 {key: "operations", label: "Operations", sortable: false}
             ],
-            items: JSON.parse(JSON.stringify(books)),
+            items: [],
             page: 1
         };
     },
+    created() {
+        this.fetchData();
+    },
     methods: {
-        matches: function(book, filter) {
+        fetchData() {
+            BookRequest.findAllBooks(msg => {
+                if (msg.status === "SUCCESS")
+                    this.items = msg.data;
+            });
+        },
+        matches(book, filter) {
             return book[filter.type].toLowerCase().indexOf(filter.text.toLowerCase()) >= 0;
         },
-        handleRefresh: function() {
-            this.items = JSON.parse(JSON.stringify(books));
+        handleRefresh() {
+            this.fetchData();
         },
-        handleAddBook: function() {
-            this.$refs["editor"].show();
+        handleAddBook() {
+            this.$refs["add-book"].show();
         },
-        handleShowInfo: function(isbn) {
+        handleShowInfo(isbn) {
             window.open("/books/" + isbn);
         },
-        handleEditInfo: function(isbn) {
+        handleEditInfo(isbn) {
             let book = this.items.find(book => (book.isbn === isbn));
             this.$refs["editor"].show(book);
         },
-        handleDeleteBook: function(isbn) {
+        handleDeleteBook(isbn) {
             let index = this.items.findIndex(book => (book.isbn === isbn));
             this.items.splice(index, 1);
         },
-        handleEditionSuccess: function(book) {
+        handleEditionSuccess(book) {
             let isbn = book.isbn;
             let index = this.items.findIndex(book => (book.isbn === isbn));
             this.$set(this.items, index, book);
         },
-        handleAdditionSuccess: function(book) {
+        handleAdditionSuccess(book) {
             let isbn = book.isbn;
             let index = this.items.findIndex(book => (book.isbn === isbn));
             if (index >= 0)

@@ -57,7 +57,7 @@ import Book from "@/Book";
 
 export default {
     name: "InfoEditor",
-    data: function() {
+    data() {
         return {
             isbn: "",
             title: "",
@@ -73,15 +73,15 @@ export default {
         };
     },
     computed: {
-        modalTitle: function() {
+        modalTitle() {
             return this.editionMode ? "Edit the information" : "Add a new book";
         },
-        coverInputPlaceHolder: function() {
+        coverInputPlaceHolder() {
             return this.editionMode ? "Original cover" : "No file chosen";
         }
     },
     methods: {
-        show: function(book) {
+        show(book) {
             this.editionMode = book !== undefined;
             if (book === undefined)
                 book = new Book();
@@ -90,10 +90,10 @@ export default {
             this.cover = null;
             this.$refs["modal"].show();
         },
-        handleClearCover: function() {
+        handleClearCover() {
             this.cover = null;
         },
-        handleCommit: function() {
+        handleCommit() {
             if (!this.editionMode && !this.isValidISBN(this.isbn)) {
                 alert("Invalid ISBN");
                 return;
@@ -129,7 +129,7 @@ export default {
             else
                 this.$emit("addition-success", book);
         },
-        isValidISBN: function(isbn) {
+        isValidISBN(isbn) {
             if (!/^\d{12}[\d|X]$/.test(isbn))
                 return false;
             if (isbn.slice(0, 3) !== "978")

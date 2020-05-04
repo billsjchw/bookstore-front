@@ -16,7 +16,7 @@ export default {
         "book-card": BookCard
     },
     computed: {
-        rows: function() {
+        rows() {
             let rows = [];
             for (let i = 0; i < this.books.length; i += this.colNum)
                 rows.push(this.books.slice(i, i + this.colNum));

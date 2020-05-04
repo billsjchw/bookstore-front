@@ -24,14 +24,14 @@ export default {
         event: "commit"
     },
     props: ["search"],
-    data: function() {
+    data() {
         return {
             type: this.search.type,
             text: this.search.text
         };
     },
     computed: {
-        typeName: function() {
+        typeName() {
             return {
                 "title": "Title",
                 "author": "Author",
@@ -40,7 +40,7 @@ export default {
         }
     },
     methods: {
-        emitCommit: function() {
+        emitCommit() {
             this.$emit(
                 "commit",
                 {
