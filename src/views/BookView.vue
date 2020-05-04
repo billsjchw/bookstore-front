@@ -3,7 +3,7 @@
     <nav-bar/>
     <div class="detail-view d-flex justify-content-center align-items-start mt-2">
         <div class="d-flex flex-column align-items-center">
-            <img class="mt-3" :src="image" :alt="book.title">
+            <img class="mt-3" :src="book.cover" :alt="book.title">
             <add-to-cart class="mt-2" :isbn="book.isbn"/>
         </div>
         <book-info class="ml-3" :book="book"/>
@@ -15,7 +15,9 @@
 import NavBar from "@/components/NavBar";
 import AddToCart from "@/components/AddToCart";
 import BookInfo from "@/components/BookInfo";
-import books from "@/books";
+import Book from "@/util/Book";
+import BookRequest from "@/requests/BookRequest";
+import Util from "@/util/Util";
 
 export default {
     name: "BookView",
@@ -25,16 +27,33 @@ export default {
         "book-info": BookInfo
     },
     data() {
-        let book = books.find(book => (book.isbn === this.$route.params.isbn));
-        if (book === undefined)
-            window.location.href = encodeURI(`/error/The book is not found`);
         return {
-            book: book
+            book: new Book()
         };
     },
-    computed: {
-        image() {
-            return require("../assets/books/" + this.book.isbn + ".jpg");
+    created() {
+        this.fetchData();
+    },
+    methods: {
+        fetchData() {
+            let isbn = this.$route.params.isbn;
+            if (!Util.isValidISBN(isbn)) {
+                alert("Invalid ISBN");
+                window.location.href = "/books";
+                return;
+            }
+            BookRequest.getBookByIsbn(isbn, msg => {
+                if (msg.status === "UNAUTHORIZED")
+                    window.location.href = "/login";
+                else if (msg.status === "BOOK_NOT_FOUND") {
+                    alert("Book not found");
+                    window.location.href = "/books";
+                } else if (msg.status !== "SUCCESS") {
+                    alert("Unknown error");
+                    window.location.href = "/books";
+                } else
+                    this.book = msg.data;
+            });
         }
     }
 };

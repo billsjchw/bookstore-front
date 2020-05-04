@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         handleClick() {
-            window.open("/books/" + this.book.isbn, "_blank");
+            window.open(`/book/${this.book.isbn}`, "_blank");
         }
     }
 };
@@ -43,7 +43,8 @@ export default {
     color: dodgerblue;
 }
 .book-card .book-card-image {
-    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
 }
 .book-card .book-card-text {
     overflow: hidden;

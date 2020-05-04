@@ -31,14 +31,17 @@ const Ajax = {
         }).then(resp => {
             if (resp.status === HttpRespStat.UNAUTHORIZED) {
                 callback(new Message("UNAUTHORIZED", null));
-                return Promise.reject();
+                return Promise.reject("HTTP_ERROR");
             } else if (resp.status !== HttpRespStat.SUCCESS) {
                 callback(new Message("UNKNOWN_HTTP_ERROR", null));
-                return Promise.reject();
+                return Promise.reject("HTTP_ERROR");
             }
             return resp.json();
         }).then(msg => {
             callback(msg);
+        }).catch((reason) => {
+            if (reason !== "HTTP_ERROR")
+                callback(new Message("UNKNOWN_ERROR", null));
         });
     }
 }

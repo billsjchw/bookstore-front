@@ -30,12 +30,22 @@ export default {
                 if (msg.status === "SUCCESS") {
                     sessionStorage.setItem("admin", msg.data);
                     window.location.href = "/books";
+                } else if (msg.status === "UNAUTHORIZED") {
+                    sessionStorage.removeItem("user");
+                    this.$bvToast.toast(
+                        "Wrong username/password",
+                        {
+                            title: "Sign in - Failure",
+                            variant: "danger",
+                            autoHideDelay: 2500
+                        }
+                    );
                 } else {
                     sessionStorage.removeItem("user");
                     this.$bvToast.toast(
-                        "Failed to sign in",
+                        "Unknown error",
                         {
-                            title: "Failure",
+                            title: "Sign in - Failure",
                             variant: "danger",
                             autoHideDelay: 2500
                         }
