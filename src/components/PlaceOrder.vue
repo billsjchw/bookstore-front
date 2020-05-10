@@ -9,7 +9,13 @@ export default {
     name: "PlaceOrder",
     methods: {
         handleCommit() {
-            OrderRequest.placeOrder(msg => {
+            OrderRequest.placeOrder(
+                {
+                    address: "test",
+                    phone: "test",
+                    name: "test"
+                },
+                msg => {
                 if (msg.status === "UNAUTHORIZED")
                     window.location.href = "/login";
                 else if (msg.status === "EMPTY_CART")

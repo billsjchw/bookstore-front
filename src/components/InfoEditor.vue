@@ -31,7 +31,7 @@
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Language:</b></label>
-            <b-form-input class="info-editor-input" type="text" v-model="lang"/>
+            <b-form-input class="info-editor-input" type="text" v-model="language"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Press:</b></label>
@@ -43,7 +43,7 @@
         </div>
         <div class="mt-2">
             <label class="d-block"><b>Introduction:</b></label>
-            <b-form-textarea v-model="intro"/>
+            <b-form-textarea v-model="introduction"/>
         </div>
         <template v-slot:modal-footer>
             <b-button variant="primary" @click="handleCommit">Commit</b-button>
@@ -67,9 +67,9 @@ export default {
             price: 0,
             press: "",
             date: "1970-01-01",
-            lang: "",
+            language: "",
             stock: 0,
-            intro: "",
+            introduction: "",
             editionMode: true
         };
     },

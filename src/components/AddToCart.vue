@@ -1,24 +1,24 @@
 <template>
 <div class="add-to-cart d-flex">
-    <b-form-spinbutton min="1" max="200" v-model="inc"/>
+    <b-form-spinbutton min="1" max="200" v-model="increment"/>
     <b-button class="ml-1" variant="primary" block @click="handleCommit">Add to cart</b-button>
 </div>
 </template>
 
 <script>
-import OrderRequest from "@/requests/OrderRequest";
+import CartRequest from "@/requests/CartRequest";
 
 export default {
     name: "AddToCart",
     props: ["isbn"],
     data() {
         return {
-            inc: 1
+            increment: 1
         };
     },
     methods: {
         handleCommit() {
-            OrderRequest.addToCart(this.isbn, this.inc, msg => {
+            CartRequest.addToCart(this.isbn, this.increment, msg => {
                 if (msg.status === "UNAUTHORIZED")
                     window.location.href = "/login";
                 else if (msg.status === "BOOK_NOT_FOUND")

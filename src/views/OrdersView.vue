@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         fetchData() {
-            OrderRequest.getHistory(msg => {
+            OrderRequest.findAllMyOrders(msg => {
                 if (msg.status === "UNAUTHORIZED")
                     window.location.href = "/login";
                 else if (msg.status !== "SUCCESS") {
