@@ -7,9 +7,9 @@ class Book {
             this.price = book.price;
             this.press = book.press;
             this.date = book.date;
-            this.lang = book.lang;
+            this.language = book.language;
             this.stock = book.stock;
-            this.intro = book.intro;
+            this.introduction = book.introduction;
         } else {
             this.isbn = "";
             this.title = "";
@@ -17,9 +17,9 @@ class Book {
             this.price = 0;
             this.press = "";
             this.date = "1970-01-01";
-            this.lang = "";
+            this.language = "";
             this.stock = 0;
-            this.intro = "";
+            this.introduction = "";
         }
     }
 }

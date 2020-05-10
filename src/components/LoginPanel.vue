@@ -28,7 +28,7 @@ export default {
             sessionStorage.setItem("user", user);
             LoginRequest.login((msg) => {
                 if (msg.status === "SUCCESS") {
-                    sessionStorage.setItem("admin", msg.data);
+                    sessionStorage.setItem("authorities", JSON.stringify(msg.data));
                     window.location.href = "/books";
                 } else if (msg.status === "UNAUTHORIZED") {
                     sessionStorage.removeItem("user");

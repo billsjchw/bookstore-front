@@ -5,12 +5,12 @@
     <p><b>Price:</b> &yen;{{(book.price / 100).toFixed(2)}}</p>
     <p><b>Stock:</b> {{book.stock}}</p>
     <p><b>ISBN:</b> {{book.isbn}}</p>
-    <p><b>Language:</b> {{book.lang}}</p>
+    <p><b>Language:</b> {{book.language}}</p>
     <p><b>Press:</b> {{book.press}}</p>
     <p><b>Publication date:</b> {{book.date}}</p>
     <p>
         <b>Introduction:</b><br/>
-        <span v-html="book.intro.replace(/\n/g, '\u003cbr/\u003e')"/>
+        <span v-html="book.introduction.data.replace(/\n/g, '\u003cbr/\u003e')"/>
     </p>
 </div>
 </template>

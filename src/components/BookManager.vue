@@ -35,12 +35,12 @@
                 </div>
             </template>
         </b-table>
-        <b-pagination
-            v-model="page"
-            :total-rows="items.length"
-            :per-page="perPage"
-        />
     </div>
+    <b-pagination
+        v-model="page"
+        :total-rows="items.length"
+        :per-page="perPage"
+    />
     <info-editor
         v-on:edition-success="handleEditionSuccess"
         v-on:addition-success="handleAdditionSuccess"

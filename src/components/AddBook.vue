@@ -3,24 +3,24 @@
     <b-modal class="add-book" scrollable no-close-on-backdrop title="Add a Book" ref="modal">
         <div class="d-flex justify-content-between">
             <label class="d-block"><b>ISBN:</b></label>
-            <b-form-input class="add-book-input" type="text" v-model="book.isbn"
+            <b-form-input class="add-book-input" type="introData" v-model="book.isbn"
                           :state="correct.isbn" @change="correct.isbn = null"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Title:</b></label>
-            <b-form-input class="add-book-input" type="text" v-model="book.title"/>
+            <b-form-input class="add-book-input" type="introData" v-model="book.title"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Author:</b></label>
-            <b-form-input class="add-book-input" type="text" v-model="book.author"/>
+            <b-form-input class="add-book-input" type="introData" v-model="book.author"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Language:</b></label>
-            <b-form-input class="add-book-input" type="text" v-model="book.lang"/>
+            <b-form-input class="add-book-input" type="introData" v-model="book.language"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Press:</b></label>
-            <b-form-input class="add-book-input" type="text" v-model="book.press"/>
+            <b-form-input class="add-book-input" type="introData" v-model="book.press"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Publication Date:</b></label>
@@ -29,7 +29,7 @@
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Cover:</b></label>
             <b-form-file class="add-book-input" accept=".jpg" placeholder="No file chosen"
-                         v-model="book.file" :state="correct.file" @change="correct.file = null"/>
+                         v-model="book.coverFile" :state="correct.coverFile" @change="correct.coverFile = null"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Price (cent):</b></label>
@@ -42,8 +42,8 @@
                           :state="correct.stock" @change="correct.stock = null"/>
         </div>
         <div class="mt-2">
-            <label class="d-block"><b>Introduction:</b></label>
-            <b-form-textarea v-model="book.intro"/>
+            <label class="d-block"><b>introData:</b></label>
+            <b-form-textarea v-model="book.introData"/>
         </div>
         <template v-slot:modal-footer>
             <p>{{result}}</p>
@@ -57,7 +57,6 @@
 <script>
 import Const from "@/constants/Const";
 import BookRequest from "@/requests/BookRequest";
-import Book from "@/util/Book";
 import Util from "@/util/Util";
 
 export default {
@@ -68,19 +67,19 @@ export default {
                 isbn: "",
                 title: "",
                 author: "",
-                lang: "",
+                language: "",
                 press: "",
                 date: Const.EPOCH,
-                intro: "",
-                file: null,
                 price: 0,
-                stock: 0
+                stock: 0,
+                coverFile: null,
+                introData: ""
             },
             correct: {
                 isbn: null,
-                file: null,
                 price: null,
-                stock: null
+                stock: null,
+                coverFile: null
             },
             committing: false,
             result: ""
@@ -101,37 +100,47 @@ export default {
             reader.addEventListener("error", () => {
                 reader.abort();
                 this.committing = false;
-                this.correct.file = false;
+                this.correct.coverFile = false;
             });
-            reader.readAsDataURL(this.book.file);
+            reader.readAsDataURL(this.book.coverFile);
         },
         check() {
-            this.correct.isbn = this.correct.file = this.correct.price = this.correct.stock = null;
+            this.correct.isbn = this.correct.coverFile = this.correct.price = this.correct.stock = null;
             if (!Util.isValidISBN(this.book.isbn))
                 this.correct.isbn = false;
-            if (this.book.file === null)
-                this.correct.file = false;
+            if (this.book.coverFile === null)
+                this.correct.coverFile = false;
             if (!Number.isInteger(this.book.price) || this.book.price < 0 || this.book.price > 2147483647)
                 this.correct.price = false;
             if (!Number.isInteger(this.book.stock) || this.book.stock < 0 || this.book.stock > 2147483647)
                 this.correct.stock = false;
-            return this.correct.isbn === null && this.correct.file === null
+            return this.correct.isbn === null && this.correct.coverFile === null
                 && this.correct.price === null && this.correct.stock === null;
         },
-        commit(cover) {
+        commit(coverData) {
             BookRequest.addBook(
-                new Book(this.book.isbn, this.book.title, this.book.author, this.book.lang, this.book.press,
-                    this.book.date, this.book.intro, cover, this.book.price, this.book.stock),
+                {
+                    isbn: this.book.isbn,
+                    title: this.book.title,
+                    author: this.book.author,
+                    language: this.book.language,
+                    press: this.book.press,
+                    date: this.book.date,
+                    price: this.book.price,
+                    stock: this.book.stock,
+                    cover: { isbn: this.book.isbn, data: coverData },
+                    introduction: { isbn: this.book.isbn, data: this.book.introData }
+                },
                 (msg) => {
                     this.committing = false;
-                    if (msg.status === "UNKNOWN_HTTP_ERROR")
-                        this.result = "Error";
-                    else if (msg.status === "UNAUTHORIZED")
+                    if (msg.status === "UNAUTHORIZED")
                         this.result = "Please sign in";
-                    else if (msg.status === "NONPRIVILEGED")
+                    else if (msg.status === "REJECTED")
                         this.result = "You are not an administrator";
                     else if (msg.status === "DUP_ISBN")
                         this.result = "The book already exists";
+                    else if (msg.status !== "SUCCESS")
+                        this.result = "Unknown error";
                     else
                         this.result = "The operation succeeds";
                 }

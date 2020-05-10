@@ -31,7 +31,7 @@
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Language:</b></label>
-            <b-form-input class="info-editor-input" type="text" v-model="lang"/>
+            <b-form-input class="info-editor-input" type="text" v-model="language"/>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <label class="d-block"><b>Press:</b></label>
@@ -43,7 +43,7 @@
         </div>
         <div class="mt-2">
             <label class="d-block"><b>Introduction:</b></label>
-            <b-form-textarea v-model="intro"/>
+            <b-form-textarea v-model="introduction"/>
         </div>
         <template v-slot:modal-footer>
             <b-button variant="primary" @click="handleCommit">Commit</b-button>
@@ -54,6 +54,7 @@
 
 <script>
 import Book from "@/Book";
+import Util from "@/util/Util";
 
 export default {
     name: "InfoEditor",
@@ -66,9 +67,9 @@ export default {
             price: 0,
             press: "",
             date: "1970-01-01",
-            lang: "",
+            language: "",
             stock: 0,
-            intro: "",
+            introduction: "",
             editionMode: true
         };
     },
@@ -94,7 +95,7 @@ export default {
             this.cover = null;
         },
         handleCommit() {
-            if (!this.editionMode && !this.isValidISBN(this.isbn)) {
+            if (!this.editionMode && !Util.isValidISBN(this.isbn)) {
                 alert("Invalid ISBN");
                 return;
             }
@@ -128,22 +129,6 @@ export default {
                 this.$emit("edition-success", book);
             else
                 this.$emit("addition-success", book);
-        },
-        isValidISBN(isbn) {
-            if (!/^\d{12}[\d|X]$/.test(isbn))
-                return false;
-            if (isbn.slice(0, 3) !== "978")
-                return false;
-            let code = 0;
-            for (let i = 0; i < 9; ++i)
-                code += Number(isbn[i + 3]) * (10 - i);
-            code = 11 - code % 11;
-            if (code === 11)
-                return isbn[12] === "0";
-            else if (code === 10)
-                return isbn[12] === "X";
-            else
-                return Number(isbn[12]) === code;
         }
     }
 };

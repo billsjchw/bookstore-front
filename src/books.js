@@ -6,9 +6,9 @@ export default [
         price: 51800,
         press: "Prentice Hall PTR",
         date: "2006-02-20",
-        lang: "English",
+        language: "English",
         stock: 150,
-        intro: "The classic object-oriented introduction for beginners and experts alike, fully updated for Java SE5/6 with many new examples and chapters!\n" +
+        introduction: "The classic object-oriented introductionduction for beginners and experts alike, fully updated for Java SE5/6 with many new examples and chapters!\n" +
             "Test framework shows program output.\n" +
             "Design patterns are shown with multiple examples throughout: Adapter, Bridge, Chain of Responsibility, Command, Decorator, Facade, Factory Method, Flyweight, Iterator, Data Transfer Object, Null Object, Proxy, Singleton, State, Strategy, Template Method, and Visitor.\n" +
             "Introduction to XML for data transfer; SWT, Flash for user interfaces.\n" +
@@ -27,9 +27,9 @@ export default [
         price: 48357,
         press: "O'Reilly Media, Inc, USA",
         date: "2013-06-30",
-        lang: "English",
+        language: "English",
         stock: 200,
-        intro: "Get a comprehensive, in-depth introduction to the core Python language with this hands-on book. Based on author Mark Lutz's popular training course, this updated fifth edition will help you quickly write efficient, high-quality code with Python. It's an ideal way to begin, whether you're new to programming or a professional developer versed in other languages. Complete with quizzes, exercises, and helpful illustrations, this easy-to-follow, self-paced tutorial gets you started with both Python 2.7 and 3.3 - the latest releases in the 3.X and 2.X lines - plus all other releases in common use today. You'll also learn some advanced language features that recently have become more common in Python code.Explore Python's major built-in object types such as numbers, lists, and dictionaries Create and process objects with Python statements, and learn Python's general syntax model Use functions to avoid code redundancy and package code for reuse Organize statements, functions, and other tools into larger components with modules Dive into classes: Python's object-oriented programming tool for structuring code Write large programs with Python's exception-handling model and development tools Learn advanced Python tools, including decorators, descriptors, metaclasses, and Unicode processing"
+        introduction: "Get a comprehensive, in-depth introduction to the core Python language with this hands-on book. Based on author Mark Lutz's popular training course, this updated fifth edition will help you quickly write efficient, high-quality code with Python. It's an ideal way to begin, whether you're new to programming or a professional developer versed in other languages. Complete with quizzes, exercises, and helpful illustrations, this easy-to-follow, self-paced tutorial gets you started with both Python 2.7 and 3.3 - the latest releases in the 3.X and 2.X lines - plus all other releases in common use today. You'll also learn some advanced language features that recently have become more common in Python code.Explore Python's major built-in object types such as numbers, lists, and dictionaries Create and process objects with Python statements, and learn Python's general syntax model Use functions to avoid code redundancy and package code for reuse Organize statements, functions, and other tools into larger components with modules Dive into classes: Python's object-oriented programming tool for structuring code Write large programs with Python's exception-handling model and development tools Learn advanced Python tools, including decorators, descriptors, metaclasses, and Unicode processing"
     },
     {
         isbn: "9780262033848",
@@ -38,9 +38,9 @@ export default [
         price: 169100,
         press: "MIT Press",
         date: "2009-07-31",
-        lang: "English",
+        language: "English",
         stock: 150,
-        intro: "The latest edition of the essential text and professional reference, with substantial new material on such topics as vEB trees, multithreaded algorithms, dynamic programming, and edge-based flow.\n" +
+        introduction: "The latest edition of the essential text and professional reference, with substantial new material on such topics as vEB trees, multithreaded algorithms, dynamic programming, and edge-based flow.\n" +
             "Some books on algorithms are rigorous but incomplete; others cover masses of material but lack rigor. Introduction to Algorithms uniquely combines rigor and comprehensiveness. The book covers a broad range of algorithms in depth, yet makes their design and analysis accessible to all levels of readers. Each chapter is relatively self-contained and can be used as a unit of study. The algorithms are described in English and in a pseudocode designed to be readable by anyone who has done a little programming. The explanations have been kept elementary without sacrificing depth of coverage or mathematical rigor.\n" +
             "The first edition became a widely used text in universities worldwide as well as the standard reference for professionals. The second edition featured new chapters on the role of algorithms, probabilistic analysis and randomized algorithms, and linear programming. The third edition has been revised and updated throughout. It includes two completely new chapters, on van Emde Boas trees and multithreaded algorithms, substantial additions to the chapter on recurrence (now called \"Divide-and-Conquer\"), and an appendix on matrices. It features improved treatment of dynamic programming and greedy algorithms and a new notion of edge-based flow in the material on flow networks. Many exercises and problems have been added for this edition. The international paperback edition is no longer available; the hardcover is available worldwide."
     },
@@ -51,9 +51,9 @@ export default [
         price: 44200,
         press: "Wrox Press",
         date: "2019-09-01",
-        lang: "English",
+        language: "English",
         stock: 200,
-        intro: "Update your skill set for ES 6 and 7 with the ultimate guide for pros\n" +
+        introduction: "Update your skill set for ES 6 and 7 with the ultimate guide for pros\n" +
             "Professional for Web Developers is the essential guide to next-level development. Written for intermediate-to-advanced programmers, this book jumps right into the technical details to help you clean up your code and become a more sophisticated developer. From -specific object-oriented programming and inheritance, to combining with HTML and other markup languages, expert instruction walks you through the fundamentals and beyond. This new fourth edition has been updated to cover ECMAScript 6 and 7 (also known as ES2015 and ES2016) and the major re-imagination and departure from ES 5.1; new frameworks and libraries, new techniques, new testing tools, and more are explained in detail for the professional developer, with a practical focus that helps you put your new skills to work on real-world projects.\n" +
             "The latest--and most dramatic--ES release is already being incorporated into engines in major browsers; this, coupled with the rise in mobile web traffic increasing demand for responsive, dynamic web design, means that all web developers need to update their skills--and this book is your ideal resource for quick, relevant guidance.\n" +
             "Get up to date with ECMAScript 6 and 7, new frameworks, and new libraries\n" +
@@ -69,9 +69,9 @@ export default [
         price: 33790,
         press: "O'Reilly Media, Inc, USA",
         date: "2015-08-28",
-        lang: "English",
+        language: "English",
         stock: 150,
-        intro: "Python's simplicity lets you become productive quickly, but this often means you aren't using everything it has to offer. With this hands-on guide, you'll learn how to write effective, idiomatic Python code by leveraging its best--and possibly most neglected--features. Author Luciano Ramalho takes you through Python's core language features and libraries, and shows you how to make your code shorter, faster, and more readable at the same time.\n" +
+        introduction: "Python's simplicity lets you become productive quickly, but this often means you aren't using everything it has to offer. With this hands-on guide, you'll learn how to write effective, idiomatic Python code by leveraging its best--and possibly most neglected--features. Author Luciano Ramalho takes you through Python's core language features and libraries, and shows you how to make your code shorter, faster, and more readable at the same time.\n" +
             "Many experienced programmers try to bend Python to fit patterns they learned from other languages, and never discover Python features outside of their experience. With this book, those Python programmers will thoroughly learn how to become proficient in Python 3.\n" +
             "This book covers:\n" +
             "Python data model: understand how special methods are the key to the consistent behavior of objects\n" +
@@ -88,9 +88,9 @@ export default [
         price: 49600,
         press: "Addison-Wesley Professional",
         date: "2015-10-26",
-        lang: "English",
+        language: "English",
         stock: 200,
-        intro: "The Go Programming Language is the authoritative resource for any programmer who wants to learn Go. It shows how to write clear and idiomatic Go to solve real-world problems. The book does not assume prior knowledge of Go nor experience with any specific language, so you'll find it accessible whether you're most comfortable with , Ruby, Python, Java, or C++.\n" +
+        introduction: "The Go Programming Language is the authoritative resource for any programmer who wants to learn Go. It shows how to write clear and idiomatic Go to solve real-world problems. The book does not assume prior knowledge of Go nor experience with any specific language, so you'll find it accessible whether you're most comfortable with , Ruby, Python, Java, or C++.\n" +
             "The first chapter is a tutorial on the basic concepts of Go, introduced through programs for file I/O and text processing, simple graphics, and web clients and servers.\n" +
             "Early chapters cover the structural elements of Go programs: syntax, control flow, data types, and the organization of a program into packages, files, and functions. The examples illustrate many packages from the standard library and show how to create new ones of your own. Later chapters explain the package mechanism in more detail, and how to build, test, and maintain projects using the go tool.\n" +
             "The chapters on methods and interfaces introduce Go's unconventional approach to object-oriented programming, in which methods can be declared on any type and interfaces are implicitly satisfied. They explain the key principles of encapsulation, composition, and substitutability using realistic examples.\n" +
@@ -105,9 +105,9 @@ export default [
         price: 93300,
         press: "Addison-Wesley Professional",
         date: "2013-01-04",
-        lang: "English",
+        language: "English",
         stock: 150,
-        intro: "The new C++11 standard allows programmers to express ideas more clearly, simply, and directly, and to write faster, more efficient code. Bjarne Stroustrup, the designer and original implementer of C++, has reorganized, extended, and completely rewritten his definitive reference and tutorial for programmers who want to use C++ most effectively.\n" +
+        introduction: "The new C++11 standard allows programmers to express ideas more clearly, simply, and directly, and to write faster, more efficient code. Bjarne Stroustrup, the designer and original implementer of C++, has reorganized, extended, and completely rewritten his definitive reference and tutorial for programmers who want to use C++ most effectively.\n" +
             "The C++ Programming Language, Fourth Edition, delivers meticulous, richly explained, and integrated coverage of the entire language--its facilities, abstraction mechanisms, standard libraries, and key design techniques. Throughout, Stroustrup presents concise, \"pure C++11\" examples, which have been carefully crafted to clarify both usage and program design. To promote deeper understanding, the author provides extensive cross-references, both within the book and to the ISO standard.\n" +
             "New C++11 coverage includes\n" +
             "Support for concurrency\n" +
@@ -131,9 +131,9 @@ export default [
         price: 248700,
         press: "McGraw Hill Education",
         date: "2010-01-27",
-        lang: "English",
+        language: "English",
         stock: 200,
-        intro: "Database System Concepts by Silberschatz, Korth and Sudarshan is now in its 6th edition and is one of the cornerstone texts of database education. It presents the fundamental concepts of database management in an intuitive manner geared toward allowing students to begin working with databases as quickly as possible.\n" +
+        introduction: "Database System Concepts by Silberschatz, Korth and Sudarshan is now in its 6th edition and is one of the cornerstone texts of database education. It presents the fundamental concepts of database management in an intuitive manner geared toward allowing students to begin working with databases as quickly as possible.\n" +
             "The text is designed for a first course in databases at the junior/senior undergraduate level or the first year graduate level. It also contains additional material that can be used as supplements or as introductory material for an advanced course. Because the authors present concepts as intuitive descriptions, a familiarity with basic data structures, computer organization, and a high-level programming language are the only prerequisites. Important theoretical results are covered, but formal proofs are omitted. In place of proofs, figures and examples are used to suggest why a result is true."
     },
     {
@@ -143,9 +143,9 @@ export default [
         price: 114000,
         press: "Addison-Wesley Professional",
         date: "2011-03-09",
-        lang: "English",
+        language: "English",
         stock: 150,
-        intro: "This fourth edition of Robert Sedgewick and Kevin Wayne's Algorithms is the leading textbook on algorithms today and is widely used in colleges and universities worldwide. This book surveys the most important computer algorithms currently in use and provides a full treatment of data structures and algorithms for sorting, searching, graph processing, and string processing--including fifty algorithms every programmｅr ｓhould know. In this edition, new Java implementations are written in an accessible modular programming style, where all of the code is exposed to the reader and ready to use.\n" +
+        introduction: "This fourth edition of Robert Sedgewick and Kevin Wayne's Algorithms is the leading textbook on algorithms today and is widely used in colleges and universities worldwide. This book surveys the most important computer algorithms currently in use and provides a full treatment of data structures and algorithms for sorting, searching, graph processing, and string processing--including fifty algorithms every programmｅr ｓhould know. In this edition, new Java implementations are written in an accessible modular programming style, where all of the code is exposed to the reader and ready to use.\n" +
             "The algorithms in this book represent a body of knowledge developed over the last 50 years that has become indispensable, not just for professional programmers and computer science students but for any student with interests in science, mathematics, and engineering, not to mention students who use computation in the liberal arts.\n" +
             "The companion web site, algs4.cs.princeton.edu, contains\n" +
             "An online synopsis\n" +

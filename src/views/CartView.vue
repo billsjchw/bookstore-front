@@ -3,14 +3,14 @@
     <nav-bar active-item="cart"/>
     <div class="d-flex flex-column align-items-center mt-3">
         <item-table :items="items"/>
-        <place-order class="float-right"/>
+        <place-order/>
     </div>
 </div>
 </template>
 
 <script>
 import ItemTable from "@/components/ItemTable";
-import OrderRequest from "@/requests/OrderRequest";
+import CartRequest from "@/requests/CartRequest";
 import NavBar from "@/components/NavBar";
 import PlaceOrder from "@/components/PlaceOrder";
 
@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         fetchData() {
-            OrderRequest.getCart(msg => {
+            CartRequest.findCart(msg => {
                 if (msg.status === "UNAUTHORIZED")
                     window.location.href = "/login";
                 else if (msg.status !== "SUCCESS") {

@@ -7,7 +7,7 @@
     >
         <template v-slot:cell(book)="row">
             <div class="item-table-cell d-flex">
-                <img class="item-table-cover d-block" :src="row.item.book.cover"/>
+                <img class="item-table-cover d-block" :src="row.item.book.cover.data"/>
                 <div class="d-flex flex-column justify-content-center ml-2">
                     <h6 class="m-0">{{ row.item.book.title }}</h6>
                     <p class="m-0">
@@ -24,12 +24,12 @@
         </template>
         <template v-slot:cell(num)="row">
             <div class="item-table-cell d-flex flex-column justify-content-center">
-                &times;{{ row.item.num }}
+                &times;{{ row.item.amount }}
             </div>
         </template>
         <template v-slot:cell(total)="row">
             <div class="item-table-cell d-flex flex-column justify-content-center">
-                &yen;{{ (row.item.book.price * row.item.num / 100).toFixed(2) }}
+                &yen;{{ (row.item.book.price * row.item.amount / 100).toFixed(2) }}
             </div>
         </template>
     </b-table>
