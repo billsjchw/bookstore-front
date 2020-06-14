@@ -1,65 +1,73 @@
 <template>
-<div class="d-flex flex-column align-items-center">
-    <search-bar
-        v-model="search"
-    />
-    <book-grid
-        :books="currentBooks"
-        :col-num="colNum"
-    />
-    <b-pagination
-        v-model="page"
-        :total-rows="selectedBooks.length"
-        :per-page="rowNum * colNum"
-    />
-</div>
+  <div class="book-list d-flex flex-column align-items-center">
+    <search-bar @search="handleSearch"/>
+    <book-grid v-if="!loading" :books="books" :row-size="rowSize"/>
+    <div v-else><b-spinner/></div>
+    <b-pagination v-model="page" :total-rows="totalBooks"
+                  :per-page="pageSize" @change="handleSwitchPage"/>
+  </div>
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar";
-import BookGrid from "@/components/BookGrid";
-import BookRequest from "@/requests/BookRequest";
+  import SearchBar from '@/components/SearchBar';
+  import book_service from '@/services/book_service';
+  import BookGrid from '@/components/BookGrid';
 
-export default {
-    name: "BookList",
-    props: ["rowNum", "colNum"],
+  export default {
+    name: 'BookList',
     components: {
-        "search-bar": SearchBar,
-        "book-grid": BookGrid,
+      BookGrid,
+      'search-bar': SearchBar,
+    },
+    props: {
+      pageSize: Number,
+      rowSize: Number,
     },
     data() {
-        return {
-            books: [],
-            page: 1,
-            search: {
-                type: "title",
-                text: ""
-            }
-        };
+      return {
+        page: 1,
+        keyword: '',
+        books: [],
+        totalBooks: 0,
+        loading: false,
+      };
     },
     created() {
-        this.fetchData();
-    },
-    computed: {
-        selectedBooks() {
-            return this.books.filter(
-                book => (book[this.search.type].toLowerCase().indexOf(this.search.text.toLowerCase()) >= 0)
-            );
-        },
-        currentBooks() {
-            return this.selectedBooks.slice(
-                (this.page - 1) * this.rowNum * this.colNum,
-                (this.page) * this.rowNum * this.colNum
-            );
-        }
+      this.fetchBooks('', 0);
     },
     methods: {
-        fetchData() {
-            BookRequest.findAllBooks(msg => {
-                if (msg.status === "SUCCESS")
-                    this.books = msg.data;
-            });
-        },
-    }
-};
+      fetchBooks(keyword, page) {
+        this.loading = true;
+        let callback = (msg) => {
+          if (msg.status === 'SUCCESS') {
+            this.books = msg.data.content;
+            this.totalBooks = msg.data.totalElements;
+          }
+          this.loading = false;
+        };
+        if (keyword)
+          book_service.bookFuzzySearch(keyword, page, this.pageSize, callback);
+        else
+          book_service.findAllBooks(page, this.pageSize, callback);
+      },
+      handleSearch(keyword) {
+        if (this.loading)
+          return;
+        this.page = 1;
+        this.keyword = keyword;
+        this.fetchBooks(keyword, 0);
+      },
+      handleSwitchPage(page) {
+        if (this.loading)
+          return;
+        this.fetchBooks(this.keyword, page - 1);
+      },
+    },
+  };
 </script>
+
+<style scoped>
+  .book-list {
+    max-width: fit-content;
+  }
+</style>

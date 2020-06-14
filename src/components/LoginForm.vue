@@ -1,0 +1,88 @@
+<template>
+  <div class="login-form d-flex flex-column align-items-center">
+    <img :src="require('@/assets/images/logo.png')" alt="books"
+         class="login-form__logo"/>
+    <h2 class="mb-3 font-weight-normal">Bookstore</h2>
+    <div class="w-100 mb-3">
+      <b-form-input v-model="username" type="text" placeholder="Username"
+                    size="lg" class="login-form__username-input"/>
+      <b-form-input v-model="password" type="password" placeholder="Password"
+                    size="lg" class="login-form__password-input"/>
+    </div>
+    <b-button @click="handleLogin" :disabled="loading" block size="lg"
+              variant="primary">Sign in</b-button>
+    <div class="mt-3 mb-5"><a href="#">Create an account</a></div>
+  </div>
+</template>
+
+<script>
+  import login_service from '@/services/login_service';
+
+  export default {
+    name: 'LoginForm',
+    data() {
+      return {
+        username: '',
+        password: '',
+        loading: false,
+      };
+    },
+    methods: {
+      handleLogin() {
+        if (this.loading) {
+          return;
+        } else if (!this.username || !this.password) {
+          this.$bvToast.toast(
+            'Missing username or password',
+            { variant: 'danger', title: 'Sign in - Failed'},
+          );
+          return;
+        }
+        this.loading = true;
+        let basic = btoa(`${this.username}:${this.password}`);
+        sessionStorage.setItem('basic', basic);
+        login_service.login((msg) => {
+          if (msg.status === 'SUCCESS') {
+            sessionStorage.setItem('user', JSON.stringify(msg.data));
+            this.$router.push('/');
+          } else if (msg.status === 'UNAUTHORIZED') {
+            this.$bvToast.toast(
+              'Wrong username/password',
+              { variant: 'danger', title: 'Sign in - Failed'},
+            );
+          } else {
+            this.$bvToast.toast(
+              'Unknown error',
+              { variant: 'danger', title: 'Sign in - Failed'},
+            );
+          }
+          this.loading = false;
+        });
+      },
+    },
+  };
+</script>
+
+<style scoped>
+  .login-form {
+    min-width: 300px;
+    max-width: 300px;
+  }
+  .login-form__logo {
+    min-width: 95px;
+    max-width: 95px;
+    min-height: 95px;
+    max-height: 95px;
+  }
+  .login-form__username-input {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 16px;
+  }
+  .login-form__password-input {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    font-size: 16px;
+  }
+</style>

@@ -1,26 +1,27 @@
 <template>
-  <div class="cart-view">
+  <div class="home-view">
     <nav-bar/>
     <div class="d-flex justify-content-center mt-3">
-      <cart-manager/>
+      <book-list :page-size="8" :row-size="4"/>
     </div>
   </div>
 </template>
 
 <script>
   import NavBar from '@/components/NavBar';
-  import CartManager from '@/components/CartManager';
+  import BookList from '@/components/BookList';
+
   export default {
-    name: 'CartView',
+    name: 'HomeView',
     components: {
+      'book-list': BookList,
       'nav-bar': NavBar,
-      'cart-manager': CartManager,
     },
   };
 </script>
 
 <style scoped>
-  .cart-view {
+  .home-view {
     min-width: fit-content;
   }
 </style>
