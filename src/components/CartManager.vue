@@ -3,28 +3,30 @@
     <div v-if="loading">
       <b-spinner/>
     </div>
+    <div v-else-if="error">
+      <p>Failed to load the cart</p>
+    </div>
+    <div v-else-if="!totalItems">
+      <div class="cart-manager__empty-cart d-flex flex-column">
+        <h2 class="align-self-start">Your Cart</h2>
+        <p class="align-self-center">Your cart is empty</p>
+      </div>
+    </div>
     <div v-else>
-      <div v-if="error">
-        <p>Failed to load the cart</p>
-      </div>
-      <div v-else-if="!totalItems">
-        <div class="cart-manager__empty-cart d-flex flex-column">
-          <h2 class="align-self-start">Cart</h2>
-          <p class="align-self-center">Your cart is empty</p>
+      <div class="d-flex flex-column align-items-center">
+        <h2 class="align-self-start">Your Cart</h2>
+        <div v-for="(_, index) of cart.items"
+             v-show="!removed[index]" :key="index">
+          <cart-item-card v-model="cart.items[index]"
+                          @remove="handleRemoveItem"/>
         </div>
-      </div>
-      <div v-else>
-        <div class="d-flex flex-column align-items-center">
-          <h2 class="align-self-start">Cart</h2>
-          <div v-for="(_, index) of cart.items"
-               v-show="!removed[index]" :key="index">
-            <cart-item-card v-model="cart.items[index]"
-                            @remove="handleRemoveItem"/>
-          </div>
-          <h5 class="align-self-end">
-            Total Price: ￥{{ (totalPrice / 100).toFixed(2) }}
-          </h5>
-        </div>
+        <h5 class="align-self-end">
+          Total Price: &yen;{{ (totalPrice / 100).toFixed(2) }}
+        </h5>
+        <b-button href="/checkout" variant="primary"
+                  class="align-self-end cart-manager__go-to-checkout-text">
+          GO TO CHECKOUT
+        </b-button>
       </div>
     </div>
   </div>
@@ -56,13 +58,13 @@
             else
               return acc;
           },
-          0
+          0,
         );
       },
       totalItems() {
         return this.removed.reduce(
           (acc, cur) => cur ? acc : acc + 1,
-          0
+          0,
         );
       },
     },
@@ -96,5 +98,8 @@
   .cart-manager__empty-cart {
     min-width: 576px;
     max-width: 576px;
+  }
+  .cart-manager__go-to-checkout-text {
+    font-size: 15px;
   }
 </style>

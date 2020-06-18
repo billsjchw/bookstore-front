@@ -7,7 +7,7 @@
       <b-card-text class="book-card__text">
         <span>{{ book.title }}</span><br/>
         <span>{{ book.author }}</span><br/>
-        <span>￥{{ (book.price / 100).toFixed(2) }}</span>
+        <span>&yen;{{ (book.price / 100).toFixed(2) }}</span>
       </b-card-text>
     </b-card-body>
   </b-card>

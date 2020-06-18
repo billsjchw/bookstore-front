@@ -26,8 +26,4 @@
 </script>
 
 <style scoped>
-  .search-bar {
-    min-width: 500px;
-    max-width: 500px;
-  }
 </style>

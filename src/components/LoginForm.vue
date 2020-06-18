@@ -5,9 +5,9 @@
     <h2 class="mb-3 font-weight-normal">Bookstore</h2>
     <div class="w-100 mb-3">
       <b-form-input v-model="username" type="text" placeholder="Username"
-                    size="lg" class="login-form__username-input"/>
+                    size="lg" class="login-form__username-input" :state="usernameState"/>
       <b-form-input v-model="password" type="password" placeholder="Password"
-                    size="lg" class="login-form__password-input"/>
+                    size="lg" class="login-form__password-input" :state="passwordState"/>
     </div>
     <b-button @click="handleLogin" :disabled="loading" block size="lg"
               variant="primary">Sign in</b-button>
@@ -25,19 +25,22 @@
         username: '',
         password: '',
         loading: false,
+        usernameState: null,
+        passwordState: null,
       };
     },
     methods: {
       handleLogin() {
-        if (this.loading) {
+        if (this.loading)
           return;
-        } else if (!this.username || !this.password) {
-          this.$bvToast.toast(
-            'Missing username or password',
-            { variant: 'danger', title: 'Sign in - Failed'},
-          );
+        if (!this.username)
+          this.usernameState = false;
+        if (!this.password)
+          this.passwordState = false;
+        if (!this.username || !this.password)
           return;
-        }
+        this.usernameState = null;
+        this.passwordState = null;
         this.loading = true;
         let basic = btoa(`${this.username}:${this.password}`);
         sessionStorage.setItem('basic', basic);

@@ -15,6 +15,7 @@
         <b-dropdown-item @click="handleLogout">Sign out</b-dropdown-item>
         <b-dropdown-item v-if="bookAdmin" href="/book-admin">Book Admin</b-dropdown-item>
         <b-dropdown-item v-if="userAdmin" href="/user-admin">User Admin</b-dropdown-item>
+        <b-dropdown-item v-if="orderAdmin" href="/order-admin">Order Admin</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
   </b-navbar>
@@ -40,6 +41,10 @@
       userAdmin() {
         return util.checkAuthority(this.user,
             constant.AuthorityId.USER_ADMIN);
+      },
+      orderAdmin() {
+        return util.checkAuthority(this.user,
+          constant.AuthorityId.ORDER_ADMIN);
       },
     },
     methods: {

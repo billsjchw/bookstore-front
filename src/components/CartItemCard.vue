@@ -25,7 +25,7 @@
                           :disabled="loading" switch size="lg"/>
             </div>
             <div class="cart-item-card__price">
-              <strong>￥{{ (value.book.price / 100).toFixed(2) }}</strong>
+              <strong>&yen;{{ (value.book.price / 100).toFixed(2) }}</strong>
             </div>
           </div>
         </div>

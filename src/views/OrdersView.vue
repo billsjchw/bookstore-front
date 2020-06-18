@@ -1,26 +1,27 @@
 <template>
-  <div class="cart-view">
+  <div class="order-view">
     <nav-bar/>
-    <div class="d-flex justify-content-center mt-3 mb-3">
-      <cart-manager/>
+    <div class="d-flex justify-content-center mt-3">
+      <order-list :page-size="4" :admin="false"/>
     </div>
   </div>
 </template>
 
 <script>
   import NavBar from '@/components/NavBar';
-  import CartManager from '@/components/CartManager';
+  import OrderList from '@/components/OrderList';
+
   export default {
-    name: 'CartView',
+    name: 'OrdersView',
     components: {
       'nav-bar': NavBar,
-      'cart-manager': CartManager,
+      'order-list': OrderList,
     },
   };
 </script>
 
 <style scoped>
-  .cart-view {
+  .order-view {
     min-width: fit-content;
   }
 </style>

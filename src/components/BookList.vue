@@ -1,6 +1,6 @@
 <template>
   <div class="book-list d-flex flex-column align-items-center">
-    <search-bar @search="handleSearch"/>
+    <search-bar @search="handleSearch" class="book-list__search-bar"/>
     <book-grid v-if="!loading" :books="books" :row-size="rowSize"/>
     <div v-else><b-spinner/></div>
     <b-pagination v-model="page" :total-rows="totalBooks"
@@ -40,6 +40,8 @@
         this.loading = true;
         let callback = (msg) => {
           if (msg.status === 'SUCCESS') {
+            this.keyword = keyword;
+            this.page = page + 1;
             this.books = msg.data.content;
             this.totalBooks = msg.data.totalElements;
           }
@@ -53,8 +55,6 @@
       handleSearch(keyword) {
         if (this.loading)
           return;
-        this.page = 1;
-        this.keyword = keyword;
         this.fetchBooks(keyword, 0);
       },
       handleSwitchPage(page) {
@@ -67,7 +67,8 @@
 </script>
 
 <style scoped>
-  .book-list {
-    max-width: fit-content;
+  .book-list__search-bar {
+    min-width: 500px;
+    max-width: 500px;
   }
 </style>
