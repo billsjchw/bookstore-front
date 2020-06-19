@@ -13,4 +13,8 @@ const AuthorityId = {
   ORDER_ADMIN: 3,
 };
 
-export default {Backend, HttpStatus, AuthorityId};
+const Misc = {
+  UNIX_EPOCH: '1970-01-01',
+};
+
+export default {Backend, HttpStatus, AuthorityId, Misc};

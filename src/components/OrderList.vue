@@ -114,9 +114,6 @@
 </script>
 
 <style scoped>
-  .order-list {
-    min-width: 700px;
-  }
   .order-list__placed-time-select {
     min-width: 150px;
     max-width: 150px;

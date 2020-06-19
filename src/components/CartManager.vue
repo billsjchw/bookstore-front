@@ -16,9 +16,9 @@
       <div class="d-flex flex-column align-items-center">
         <h2 class="align-self-start">Your Cart</h2>
         <div v-for="(_, index) of cart.items"
-             v-show="!removed[index]" :key="index">
+             v-show="!deleted[index]" :key="index">
           <cart-item-card v-model="cart.items[index]"
-                          @remove="handleRemoveItem"/>
+                          @delete="handleDeleteItem"/>
         </div>
         <h5 class="align-self-end">
           Total Price: &yen;{{ (totalPrice / 100).toFixed(2) }}
@@ -46,14 +46,14 @@
         loading: true,
         error: false,
         cart: null,
-        removed: [],
+        deleted: [],
       };
     },
     computed: {
       totalPrice() {
         return this.cart.items.reduce(
           (acc, cartItem, index) => {
-            if (!this.removed[index] && cartItem.active)
+            if (!this.deleted[index] && cartItem.active)
               return acc + cartItem.amount * cartItem.book.price;
             else
               return acc;
@@ -62,7 +62,7 @@
         );
       },
       totalItems() {
-        return this.removed.reduce(
+        return this.deleted.reduce(
           (acc, cur) => cur ? acc : acc + 1,
           0,
         );
@@ -72,7 +72,7 @@
       cart_service.findMyCart((msg) => {
         if (msg.status === 'SUCCESS') {
           this.cart = msg.data;
-          this.removed = new Array(msg.data.items.length).fill(false);
+          this.deleted = new Array(msg.data.items.length).fill(false);
         } else {
           this.error = true;
         }
@@ -80,10 +80,10 @@
       });
     },
     methods: {
-      handleRemoveItem(cartItem) {
+      handleDeleteItem(cartItem) {
         for (let i = 0; i < this.cart.items.length; ++i)
           if (this.cart.items[i].book.id === cartItem.book.id) {
-            this.$set(this.removed, i, true);
+            this.$set(this.deleted, i, true);
             break;
           }
       },

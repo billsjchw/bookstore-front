@@ -8,6 +8,9 @@ import CheckoutView from '@/views/CheckoutView';
 import OrdersView from '@/views/OrdersView';
 import OrderAdminView from '@/views/OrderAdminView';
 import constant from '@/utils/constant';
+import BookAdminView from '@/views/BookAdminView';
+import EditBookView from '@/views/EditBookView';
+import AddBookView from '@/views/AddBookView';
 
 const router = new VueRouter({
   mode: 'history',
@@ -19,6 +22,9 @@ const router = new VueRouter({
     { name: 'Checkout', path: '/checkout', component: CheckoutView },
     { name: 'Order', path: '/orders', component: OrdersView },
     { name: 'OrderAdmin', path: '/order-admin', component: OrderAdminView },
+    { name: 'BookAdmin', path: '/book-admin', component: BookAdminView },
+    { name: 'EditBook', path: '/edit-book/:id', component: EditBookView },
+    { name: 'AddBook', path: '/add-book', component: AddBookView },
     { name: 'Others', path: '/*', redirect: '/home' },
   ],
 });
@@ -31,6 +37,9 @@ router.beforeEach((to, from, next) => {
     next({ name: 'Login' });
   else if (to.name === 'OrderAdmin' &&
       !util.checkAuthority(user, constant.AuthorityId.ORDER_ADMIN))
+    next({ name: 'Home' });
+  else if ((to.name === 'BookAdmin' || to.name === 'EditBook') &&
+      !util.checkAuthority(user, constant.AuthorityId.BOOK_ADMIN))
     next({ name: 'Home' });
   else
     next();

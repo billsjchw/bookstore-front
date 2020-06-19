@@ -9,7 +9,7 @@
     <h5>Items</h5>
     <b-table :items="order.items" :fields="fields"
              striped small borderless outlined>
-      <template v-slot:cell(ISBN)="row">
+      <template v-slot:cell(isbn)="row">
         {{ row.item.book.isbn }}
       </template>
       <template v-slot:cell(title)="row">
@@ -34,7 +34,12 @@
     },
     data() {
       return {
-        fields: ['ISBN', 'title', 'price', 'amount'],
+        fields: [
+          { key: 'isbn', label: 'ISBN' },
+          { key: 'title', label: 'Title' },
+          { key: 'price', label: 'Price' },
+          { key: 'amount', label: 'Amount' },
+        ],
       };
     },
   };

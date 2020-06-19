@@ -18,9 +18,9 @@ function editItemInMyCart(cartItem, callback) {
   service.post('/cart/edit-item-in-my-cart', null, cartItem, callback);
 }
 
-function removeItemFromMyCart(bookId, callback) {
+function deleteItemFromMyCart(bookId, callback) {
   let params = { 'book-id': bookId };
-  service.get('/cart/remove-item-from-my-cart', params, callback);
+  service.get('/cart/delete-item-from-my-cart', params, callback);
 }
 
-export default {addBookToMyCart, findItemInMyCart, findMyCart, editItemInMyCart, removeItemFromMyCart};
+export default {addBookToMyCart, findItemInMyCart, findMyCart, editItemInMyCart, deleteItemFromMyCart};

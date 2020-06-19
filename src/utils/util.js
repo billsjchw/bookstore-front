@@ -40,4 +40,19 @@ function calcTimeStartEnd(timeRange) {
   };
 }
 
-export default {getUser, checkAuthority, isInt, calcTimeStartEnd };
+function isIsbn(str) {
+  if (!/^\d{13}$/.test(str))
+    return false;
+  if (str.slice(0, 3) !== "978")
+    return false;
+  let code = 0;
+  for (let i = 0; i < 12; ++i)
+    code += Number(str[i]) * (i % 2 ? 3 : 1);
+  code = 10 - code % 10;
+  if (code === 10)
+    return str[12] === "0";
+  else
+    return Number(str[12]) === code;
+}
+
+export default {getUser, checkAuthority, isInt, calcTimeStartEnd, isIsbn };

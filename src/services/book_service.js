@@ -15,4 +15,17 @@ function bookFuzzySearch(keyword, page, size, callback) {
   service.get('/book/book-fuzzy-search', params, callback);
 }
 
-export default {findBookById, findAllBooks, bookFuzzySearch};
+function addBook(book, callback) {
+  service.post('/book/add-book', null, book, callback);
+}
+
+function editBook(book, callback) {
+  service.post('/book/edit-book', null, book, callback);
+}
+
+function deleteBookById(id, callback) {
+  let params = { 'id': id };
+  service.get('/book/delete-book-by-id', params, callback);
+}
+
+export default {findBookById, findAllBooks, bookFuzzySearch, addBook, editBook, deleteBookById};

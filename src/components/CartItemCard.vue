@@ -60,7 +60,7 @@
         amount: this.value.amount,
         active: this.value.active,
         loading: false,
-        removed: false,
+        deleted: false,
         error: false,
         errMsg: '',
       };
@@ -77,7 +77,7 @@
           } else if (msg.status === 'ITEM_NOT_FOUND') {
             this.error = true;
             this.errMsg = 'Edit item - Item not found';
-            this.removed = true;
+            this.deleted = true;
             this.$emit('remove');
           } else if (msg.status === 'MIN_AMOUNT_EXCEEDED') {
             this.error = true;
@@ -96,7 +96,7 @@
         });
       },
       handleAmountChange(amount) {
-        if (this.removed || this.loading)
+        if (this.deleted || this.loading)
           return;
         this.editItem({
           book: this.value.book,
@@ -105,7 +105,7 @@
         });
       },
       handleActiveChange(active) {
-        if (this.removed || this.loading)
+        if (this.deleted || this.loading)
           return;
         this.editItem({
           book: this.value.book,
@@ -114,14 +114,14 @@
         });
       },
       handleRemoveItem() {
-        if (this.removed || this.loading)
+        if (this.deleted || this.loading)
           return;
         this.loading = true;
-        cart_service.removeItemFromMyCart(this.value.book.id, (msg) => {
+        cart_service.deleteItemFromMyCart(this.value.book.id, (msg) => {
           if (msg.status === 'SUCCESS') {
             this.error = false;
-            this.removed = true;
-            this.$emit('remove', this.value);
+            this.deleted = true;
+            this.$emit('delete', this.value);
           } else if (msg.status === 'UNAUTHORIZED') {
             this.error = true;
             this.errMsg = 'Remove item - Please sign in first';

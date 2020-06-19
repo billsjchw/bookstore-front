@@ -1,8 +1,10 @@
 <template>
   <div class="book-list d-flex flex-column align-items-center">
     <search-bar @search="handleSearch" class="book-list__search-bar"/>
-    <book-grid v-if="!loading" :books="books" :row-size="rowSize"/>
-    <div v-else><b-spinner/></div>
+    <div v-if="loading"><b-spinner/></div>
+    <div v-else>
+      <book-grid v-if="!loading" :books="books" :row-size="rowSize"/>
+    </div>
     <b-pagination v-model="page" :total-rows="totalBooks"
                   :per-page="pageSize" @change="handleSwitchPage"/>
   </div>
@@ -16,7 +18,7 @@
   export default {
     name: 'BookList',
     components: {
-      BookGrid,
+      'book-grid': BookGrid,
       'search-bar': SearchBar,
     },
     props: {
@@ -39,6 +41,7 @@
       fetchBooks(keyword, page) {
         this.loading = true;
         let callback = (msg) => {
+          console.log(msg);
           if (msg.status === 'SUCCESS') {
             this.keyword = keyword;
             this.page = page + 1;
