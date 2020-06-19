@@ -43,22 +43,22 @@
           else if (msg.status === 'UNAUTHORIZED')
             this.$bvToast.toast(
               'Please sign in first',
-              { variant: 'danger', title: 'Add to cart - Failed' }
+              { variant: 'danger', title: 'Add To Cart - Failed' }
             );
           else if (msg.status === 'BOOK_NOT_FOUND')
             this.$bvToast.toast(
               'Book not found',
-              { variant: 'danger', title: 'Add to cart - Failed' }
+              { variant: 'danger', title: 'Add To Cart - Failed' }
             );
           else if (msg.status === 'MAX_AMOUNT_EXCEEDED')
             this.$bvToast.toast(
               'Max amount exceeded',
-              { variant: 'danger', title: 'Add to cart - Failed' }
+              { variant: 'danger', title: 'Add To Cart - Failed' }
             );
           else
             this.$bvToast.toast(
               'Unknown error',
-              { variant: 'danger', title: 'Add to cart - Failed' }
+              { variant: 'danger', title: 'Add To Cart - Failed' }
             );
           this.loading = false;
         });

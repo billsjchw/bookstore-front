@@ -9,9 +9,9 @@
       <b-form-input v-model="password" type="password" placeholder="Password"
                     size="lg" class="login-form__password-input" :state="passwordState"/>
     </div>
-    <b-button @click="handleLogin" :disabled="loading" block size="lg"
+    <b-button @click="handleLogin" :disabled="submitting" block size="lg"
               variant="primary">Sign in</b-button>
-    <div class="mt-3 mb-5"><a href="#">Create an account</a></div>
+    <div class="mt-3 mb-5"><a href="/register">Create an account</a></div>
   </div>
 </template>
 
@@ -24,14 +24,14 @@
       return {
         username: '',
         password: '',
-        loading: false,
+        submitting: false,
         usernameState: null,
         passwordState: null,
       };
     },
     methods: {
       handleLogin() {
-        if (this.loading)
+        if (this.submitting)
           return;
         if (!this.username)
           this.usernameState = false;
@@ -41,7 +41,7 @@
           return;
         this.usernameState = null;
         this.passwordState = null;
-        this.loading = true;
+        this.submitting = true;
         let basic = btoa(`${this.username}:${this.password}`);
         sessionStorage.setItem('basic', basic);
         login_service.login((msg) => {
@@ -50,7 +50,9 @@
             this.$router.push('/');
           } else if (msg.status === 'UNAUTHORIZED') {
             this.$bvToast.toast(
-              'Wrong username/password',
+              msg.data === 'DISABLED' ?
+                  'Your account is disabled' :
+                  'Wrong username/password',
               { variant: 'danger', title: 'Sign in - Failed'},
             );
           } else {
@@ -59,7 +61,7 @@
               { variant: 'danger', title: 'Sign in - Failed'},
             );
           }
-          this.loading = false;
+          this.submitting = false;
         });
       },
     },

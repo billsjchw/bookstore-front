@@ -54,7 +54,7 @@
           { attribute: 'Author', value: this.book.author },
           { attribute: 'Language', value: this.book.lang },
           { attribute: 'Press', value: this.book.press },
-          { attribute: 'Publication data', value: this.book.date },
+          { attribute: 'Publication Data', value: this.book.date },
           { attribute: 'Price', value: `&yen;${(this.book.price / 100).toFixed(2)}` },
           { attribute: 'Stock', value: this.book.stock },
         ];

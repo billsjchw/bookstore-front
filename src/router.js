@@ -11,6 +11,8 @@ import constant from '@/utils/constant';
 import BookAdminView from '@/views/BookAdminView';
 import EditBookView from '@/views/EditBookView';
 import AddBookView from '@/views/AddBookView';
+import UserAdminView from '@/views/UserAdminView';
+import RegisterView from '@/views/RegisterView';
 
 const router = new VueRouter({
   mode: 'history',
@@ -25,21 +27,26 @@ const router = new VueRouter({
     { name: 'BookAdmin', path: '/book-admin', component: BookAdminView },
     { name: 'EditBook', path: '/edit-book/:id', component: EditBookView },
     { name: 'AddBook', path: '/add-book', component: AddBookView },
+    { name: 'UserAdmin', path: '/user-admin', component: UserAdminView },
+    { name: 'Register', path: '/register', component: RegisterView },
     { name: 'Others', path: '/*', redirect: '/home' },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   let user = util.getUser();
-  if (to.name === 'Login')
+  if (to.name === 'Login' || to.name === 'Register')
     next();
-  else if (!user)
+  else if (user === null)
     next({ name: 'Login' });
   else if (to.name === 'OrderAdmin' &&
       !util.checkAuthority(user, constant.AuthorityId.ORDER_ADMIN))
     next({ name: 'Home' });
-  else if ((to.name === 'BookAdmin' || to.name === 'EditBook') &&
+  else if ((to.name === 'BookAdmin' || to.name === 'EditBook' || to.name === 'AddBook') &&
       !util.checkAuthority(user, constant.AuthorityId.BOOK_ADMIN))
+    next({ name: 'Home' });
+  else if (to.name === 'UserAdmin' &&
+      !util.checkAuthority(user, constant.AuthorityId.USER_ADMIN))
     next({ name: 'Home' });
   else
     next();

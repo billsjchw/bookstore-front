@@ -124,6 +124,7 @@
           return;
         if (!this.validationCheck())
           return;
+        this.submitting = true;
         let book = {
           id: null,
           isbn: this.model.isbn,
@@ -137,7 +138,6 @@
           cover: { bookId: null, data: null },
           intro: { bookId: null, data: this.model.introData },
         };
-        this.submitting = true;
         let reader = new FileReader();
         reader.addEventListener('load', () => {
           book.cover.data = reader.result;
@@ -196,8 +196,7 @@
         if (!this.model.coverFile) {
           this.state.coverFile = false;
           this.invalidFeedback.coverFile = 'No cover file chosen';
-        }
-        if (this.model.coverFile && this.model.coverFile.type !== 'image/jpeg') {
+        } else if (this.model.coverFile.type !== 'image/jpeg') {
           this.state.coverFile = false;
           this.invalidFeedback.coverFile = 'Cover file should be a jpeg image';
         }

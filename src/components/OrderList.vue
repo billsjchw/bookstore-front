@@ -71,7 +71,6 @@
         let timePlacedStart = timePlacedStartEnd.timeStart;
         let timePlacedEnd = timePlacedStartEnd.timeEnd;
         let callback = (msg) => {
-          console.log(msg);
           if (msg.status === 'SUCCESS') {
             this.error = false;
             this.page = page + 1;
@@ -96,7 +95,6 @@
       handleSearch(keyword) {
         if (this.loading)
           return;
-        console.log(keyword);
         this.fetchOrders(keyword, this.timePlacedRange, 0);
       },
       handleSwitchTimePlacedRange(timePlacedRange) {

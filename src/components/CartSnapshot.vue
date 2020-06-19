@@ -15,12 +15,12 @@
         <div class="text-muted">Your Cart</div>
         <div>
           <b-badge pill variant="secondary">
-            {{ cart.items.length }}
+            {{ activeCartItems.length }}
           </b-badge>
         </div>
       </h4>
       <b-list-group>
-        <b-list-group-item v-for="(cartItem, index) of cart.items"
+        <b-list-group-item v-for="(cartItem, index) of activeCartItems"
                            :key="index">
           <div class="d-flex justify-content-between">
             <div>
@@ -68,8 +68,11 @@
       });
     },
     computed: {
+      activeCartItems() {
+        return this.cart.items.filter(cartItem => cartItem.active);
+      },
       totalPrice() {
-        return this.cart.items.reduce(
+        return this.activeCartItems.reduce(
           (acc, cartItem) => acc + cartItem.book.price * cartItem.amount,
           0,
         );

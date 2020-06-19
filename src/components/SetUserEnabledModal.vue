@@ -1,37 +1,29 @@
 <template>
-  <b-modal title="Delete Book" ref="modal" class="delete-book-modal">
-    <div v-if="book">
-      <p>Are you sure to delete the book?</p>
+  <b-modal title="Disable/Enable User" ref="modal" class="delete-book-modal">
+    <div v-if="user">
+      <p>Are you sure to {{ user.enabled ? 'disable' : 'enable' }} the user?</p>
       <hr/>
       <p>
-        <strong>Book ID</strong>: {{ book.id }}<br/>
-        <strong>ISBN</strong>: {{ book.isbn }}<br/>
-        <strong>Title</strong>: {{ book.title }}
+        <strong>User ID</strong>: {{ user.id }}<br/>
+        <strong>Username</strong>: {{ user.username }}
       </p>
     </div>
     <template v-slot:modal-footer>
       <span v-if="loading"><b-spinner/></span>
       <span v-else-if="error">{{ errMsg }}</span>
       <b-button @click="handleCancel" :disabled="loading" variant="secondary">Cancel</b-button>
-      <b-button @click="handleDelete" :disabled="loading" variant="danger">Delete</b-button>
+      <b-button @click="handleDelete" :disabled="loading" variant="primary">Yes</b-button>
     </template>
   </b-modal>
 </template>
 
 <script>
-  import book_service from '@/services/book_service';
+  import user_service from '@/services/user_service';
 
   export default {
-    name: 'DeleteBookModal',
+    name: 'SetUserEnabledModal',
     props: {
-      book: Object,
-    },
-    watch: {
-      book() {
-        this.loading = false;
-        this.error = false;
-        this.errMsg = '';
-      },
+      user: Object,
     },
     data() {
       return {
@@ -42,6 +34,9 @@
     },
     methods: {
       show() {
+        this.loading = false;
+        this.error = false;
+        this.errMsg = '';
         this.$refs['modal'].show();
       },
       hide() {
@@ -54,10 +49,10 @@
         if (this.loading)
           return;
         this.loading = true;
-        book_service.deleteBookById(this.book.id, (msg) => {
+        user_service.setUserEnabled(this.user.id, !this.user.enabled, (msg) => {
           if (msg.status === 'SUCCESS') {
             this.error = false;
-            this.$emit('success');
+            this.$emit('success', this.user);
             this.hide();
           } else if (msg.status === 'UNAUTHORIZED') {
             this.error = true;
@@ -65,12 +60,9 @@
           } else if (msg.status === 'REJECTED') {
             this.error = true;
             this.errMsg = 'Permission denied';
-          } else if (msg.status === 'BOOK_NOT_FOUND') {
+          } else if (msg.status === 'USER_NOT_FOUND') {
             this.error = true;
-            this.errMsg = 'Book not found';
-          } else if (msg.status === 'BOOK_IS_ORDERED') {
-            this.error = true;
-            this.errMsg = 'Book is ordered';
+            this.errMsg = 'User not found';
           } else {
             this.error = true;
             this.errMsg = 'Unknown error';

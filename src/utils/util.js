@@ -55,4 +55,9 @@ function isIsbn(str) {
     return Number(str[12]) === code;
 }
 
-export default {getUser, checkAuthority, isInt, calcTimeStartEnd, isIsbn };
+function isEmail(str) {
+  const regExp = /\S+@\S+.\S+/;
+  return regExp.test(str);
+}
+
+export default {getUser, checkAuthority, isInt, calcTimeStartEnd, isIsbn, isEmail};

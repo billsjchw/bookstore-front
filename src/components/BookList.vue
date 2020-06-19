@@ -41,7 +41,6 @@
       fetchBooks(keyword, page) {
         this.loading = true;
         let callback = (msg) => {
-          console.log(msg);
           if (msg.status === 'SUCCESS') {
             this.keyword = keyword;
             this.page = page + 1;

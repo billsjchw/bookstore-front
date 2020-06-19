@@ -23,10 +23,13 @@
         <h5 class="align-self-end">
           Total Price: &yen;{{ (totalPrice / 100).toFixed(2) }}
         </h5>
-        <b-button href="/checkout" variant="primary"
-                  class="align-self-end cart-manager__go-to-checkout-text">
-          GO TO CHECKOUT
-        </b-button>
+        <div class="align-self-end d-flex align-items-center">
+          <span v-if="!activeCartItems.length">Nothing to order</span>
+          <b-button @click="handleGoToCheckout" :disabled="!activeCartItems.length" variant="primary"
+                    class="cart-manager__go-to-checkout ml-2">
+            GO TO CHECKOUT
+          </b-button>
+        </div>
       </div>
     </div>
   </div>
@@ -50,22 +53,14 @@
       };
     },
     computed: {
+      activeCartItems() {
+        return this.cart.items.filter((cartItem, index) => cartItem.active && !this.deleted[index]);
+      },
       totalPrice() {
-        return this.cart.items.reduce(
-          (acc, cartItem, index) => {
-            if (!this.deleted[index] && cartItem.active)
-              return acc + cartItem.amount * cartItem.book.price;
-            else
-              return acc;
-          },
-          0,
-        );
+        return this.activeCartItems.reduce((acc, cartItem) => acc + cartItem.amount * cartItem.book.price, 0);
       },
       totalItems() {
-        return this.deleted.reduce(
-          (acc, cur) => cur ? acc : acc + 1,
-          0,
-        );
+        return this.deleted.reduce((acc, cur) => cur ? acc : acc + 1, 0);
       },
     },
     created() {
@@ -87,6 +82,11 @@
             break;
           }
       },
+      handleGoToCheckout() {
+        if (!this.activeCartItems.length)
+          return;
+        this.$router.push('/checkout');
+      }
     },
   };
 </script>
@@ -99,7 +99,7 @@
     min-width: 576px;
     max-width: 576px;
   }
-  .cart-manager__go-to-checkout-text {
+  .cart-manager__go-to-checkout {
     font-size: 15px;
   }
 </style>

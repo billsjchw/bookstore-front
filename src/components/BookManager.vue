@@ -1,7 +1,7 @@
 <template>
   <div class="book-manager d-flex flex-column align-items-center">
     <div class="w-100 d-flex justify-content-between">
-      <div class="book-manager__button-group mr-2"/>
+      <div class="book-manager__dummy-block mr-2"/>
       <search-bar @search="handleSearch" class="book-manager__search-bar"/>
       <b-button-group class="book-manager__button-group ml-2">
         <b-button @click="handleRefresh" variant="secondary">
@@ -19,7 +19,8 @@
     </div>
     <b-pagination v-model="page" :total-rows="totalBooks"
                   :per-page="pageSize" @change="handleSwitchPage"/>
-    <delete-book-modal :book="deleteBookModal.book" ref="delete-book-modal"/>
+    <delete-book-modal :book="deleteBookModal.book" @success="handleDeleteBookSuccess"
+                       ref="delete-book-modal"/>
   </div>
 </template>
 
@@ -102,6 +103,11 @@
         let href = this.$router.resolve({ name: 'AddBook' }).href;
         open(href, '_blank');
       },
+      handleDeleteBookSuccess() {
+        if (this.loading)
+          return;
+        this.fetchBooks(this.keyword, this.page - 1);
+      },
     },
   };
 </script>
@@ -112,6 +118,10 @@
     max-width: 500px;
   }
   .book-manager__button-group {
+    min-width: 92px;
+    max-width: 92px;
+  }
+  .book-manager__dummy-block {
     min-width: 92px;
     max-width: 92px;
   }

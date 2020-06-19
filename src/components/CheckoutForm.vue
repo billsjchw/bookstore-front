@@ -65,22 +65,22 @@
           else if (msg.status === 'UNAUTHORIZED')
             this.$bvToast.toast(
               'Please sign in first',
-              { variant: 'danger', title: 'Place order - Failed'},
+              { variant: 'danger', title: 'Place Order - Failed'},
             );
           else if (msg.status === 'NOTHING_TO_ORDER')
             this.$bvToast.toast(
-              'Your cart is empty',
-              { variant: 'danger', title: 'Place order - Failed'},
+              'Nothing to order',
+              { variant: 'danger', title: 'Place Order - Failed'},
             );
           else if (msg.status === 'OUT_OF_STOCK')
             this.$bvToast.toast(
-              `${msg.data.title} is out of stock (stock: ${msg.data.stock})`,
-              { variant: 'danger', title: 'Place order - Failed'},
+              `${msg.data.book.title} is out of stock (stock: ${msg.data.book.stock})`,
+              { variant: 'danger', title: 'Place Order - Failed'},
             );
           else
             this.$bvToast.toast(
               'Unknown error',
-              { variant: 'danger', title: 'Place order - Failed'},
+              { variant: 'danger', title: 'Place Order - Failed'},
             );
           this.loading = false;
         });
