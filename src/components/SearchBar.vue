@@ -1,61 +1,29 @@
 <template>
-<div>
-    <b-input-group class="search-bar">
-        <b-input-group-prepend>
-            <b-dropdown :text="typeName" variant="outline-secondary">
-                <b-dropdown-item-button @click="type = 'title'">Title</b-dropdown-item-button>
-                <b-dropdown-item-button @click="type = 'author'">Author</b-dropdown-item-button>
-                <b-dropdown-item-button @click="type = 'isbn'">ISBN</b-dropdown-item-button>
-            </b-dropdown>
-        </b-input-group-prepend>
-        <b-form-input v-model="text"/>
-        <b-input-group-append>
-            <b-button variant="outline-secondary" @click="emitCommit">&#x1f50d;</b-button>
-        </b-input-group-append>
-    </b-input-group>
-</div>
+  <b-input-group class="search-bar">
+    <b-form-input type="text" v-model="keyword"
+                  placeholder="Search ..."/>
+    <b-input-group-append>
+      <b-button @click="handleSearch"
+                variant="outline-secondary">🔍</b-button>
+    </b-input-group-append>
+  </b-input-group>
 </template>
 
 <script>
-export default {
+  export default {
     name: "SearchBar",
-    model: {
-        prop: "search",
-        event: "commit"
-    },
-    props: ["search"],
     data() {
-        return {
-            type: this.search.type,
-            text: this.search.text
-        };
-    },
-    computed: {
-        typeName() {
-            return {
-                "title": "Title",
-                "author": "Author",
-                "isbn": "ISBN"
-            }[this.type];
-        }
+      return {
+        keyword: '',
+      };
     },
     methods: {
-        emitCommit() {
-            this.$emit(
-                "commit",
-                {
-                    type: this.type,
-                    text: this.text
-                }
-            );
-        }
-    }
-};
+      handleSearch() {
+        this.$emit('search', this.keyword);
+      },
+    },
+  };
 </script>
 
 <style scoped>
-.search-bar {
-    min-width: 600px;
-    max-width: 600px;
-}
 </style>

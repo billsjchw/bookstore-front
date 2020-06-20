@@ -1,26 +1,27 @@
 <template>
-  <div class="cart-view">
+  <div class="edit-book-view">
     <nav-bar/>
     <div class="d-flex justify-content-center mt-3 mb-3">
-      <cart-manager/>
+      <edit-book-form :book-id="$route.params.id"/>
     </div>
   </div>
 </template>
 
 <script>
   import NavBar from '@/components/NavBar';
-  import CartManager from '@/components/CartManager';
+  import EditBookForm from '@/components/EditBookForm';
+
   export default {
-    name: 'CartView',
+    name: 'EditBookForm',
     components: {
       'nav-bar': NavBar,
-      'cart-manager': CartManager,
+      'edit-book-form': EditBookForm,
     },
   };
 </script>
 
 <style scoped>
-  .cart-view {
+  .edit-book-view {
     min-width: fit-content;
   }
 </style>

@@ -1,27 +1,27 @@
 <template>
-  <div class="book-admin-view">
+  <div class="order-admin-view">
     <nav-bar/>
     <div class="d-flex justify-content-center mt-3">
-      <book-manager :page-size="8"/>
+      <order-list :page-size="4" :admin="true"/>
     </div>
   </div>
 </template>
 
 <script>
   import NavBar from '@/components/NavBar';
-  import BookManager from '@/components/BookManager';
+  import OrderList from '@/components/OrderList';
 
   export default {
-    name: 'BookAdminView',
+    name: 'OrderAdminView',
     components: {
       'nav-bar': NavBar,
-      'book-manager': BookManager,
+      'order-list': OrderList,
     },
   };
 </script>
 
 <style scoped>
-  .book-admin-view {
+  .order-admin-view {
     min-width: fit-content;
   }
 </style>
