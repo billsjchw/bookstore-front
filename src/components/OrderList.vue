@@ -4,8 +4,8 @@
       <h2 v-if="!admin">Your Orders</h2>
       <h2 v-else>Orders</h2>
       <div class="d-flex">
-        <b-form-select :options="timePlacedRangeOptions" v-model="timePlacedRange"
-                       @change="handleSwitchTimePlacedRange" class="order-list__placed-time-select"/>
+        <time-placed-range-select :value="timePlacedRange" @change="handleSwitchTimePlacedRange"
+                                  class="order-list__time-placed-range-select"/>
         <search-bar @search="handleSearch" class="order-list__search-bar ml-2"/>
       </div>
     </div>
@@ -32,6 +32,7 @@
   import util from '@/utils/util';
   import order_service from '@/services/order_service';
   import OrderTable from '@/components/OrderTable';
+  import TimePlacedRangeSelect from '@/components/TimePlacedRangeSelect';
 
   export default {
     name: 'OrderList',
@@ -40,6 +41,7 @@
       admin: Boolean,
     },
     components: {
+      'time-placed-range-select': TimePlacedRangeSelect,
       'order-table': OrderTable,
       'search-bar': SearchBar,
     },
@@ -52,13 +54,6 @@
         orders: [],
         totalOrders: 0,
         timePlacedRange: '7_DAYS',
-        timePlacedRangeOptions: [
-          { value: '7_DAYS', text: 'Last 7 days' },
-          { value: '4_WEEKS', text: 'Last 4 weeks' },
-          { value: '3_MONTHS', text: 'Last 3 months' },
-          { value: '1_YEAR', text: 'Last 1 year' },
-          { value: 'ALL', text: 'All time' },
-        ],
       };
     },
     created() {
@@ -100,6 +95,7 @@
       handleSwitchTimePlacedRange(timePlacedRange) {
         if (this.loading)
           return;
+        this.timePlacedRange = timePlacedRange;
         this.fetchOrders(this.keyword, timePlacedRange, 0);
       },
       handleSwitchPage(page) {
@@ -112,7 +108,7 @@
 </script>
 
 <style scoped>
-  .order-list__placed-time-select {
+  .order-list__time-placed-range-select {
     min-width: 150px;
     max-width: 150px;
   }

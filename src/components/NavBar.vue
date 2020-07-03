@@ -11,7 +11,7 @@
         <template v-slot:button-content>
           <b-avatar :src="user.avatar.data" variant="light" class="nav-bar__avatar"/>
         </template>
-        <b-dropdown-item href="/profile">Profile</b-dropdown-item>
+        <b-dropdown-item href="/stat">Stat</b-dropdown-item>
         <b-dropdown-item @click="handleLogout">Sign out</b-dropdown-item>
         <b-dropdown-item v-if="bookAdmin" href="/book-admin">Book Admin</b-dropdown-item>
         <b-dropdown-item v-if="userAdmin" href="/user-admin">User Admin</b-dropdown-item>
