@@ -21,7 +21,8 @@
     },
     methods: {
       handleClick() {
-        this.$router.push(`/book/${this.book.id}`);
+        let href = this.$router.resolve({ name: 'Book', params: { id: this.book.id } }).href;
+        open(href, '_blank');
       },
     },
   };

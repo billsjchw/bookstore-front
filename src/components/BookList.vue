@@ -57,6 +57,7 @@
       handleSearch(keyword) {
         if (this.loading)
           return;
+        this.keyword = keyword;
         this.fetchBooks(keyword, 0);
       },
       handleSwitchPage(page) {

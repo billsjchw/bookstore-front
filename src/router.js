@@ -13,6 +13,7 @@ import EditBookView from '@/views/EditBookView';
 import AddBookView from '@/views/AddBookView';
 import UserAdminView from '@/views/UserAdminView';
 import RegisterView from '@/views/RegisterView';
+import StatView from '@/views/StatView';
 
 const router = new VueRouter({
   mode: 'history',
@@ -29,6 +30,7 @@ const router = new VueRouter({
     { name: 'AddBook', path: '/add-book', component: AddBookView },
     { name: 'UserAdmin', path: '/user-admin', component: UserAdminView },
     { name: 'Register', path: '/register', component: RegisterView },
+    { name: 'Stat', path: '/stat', component: StatView },
     { name: 'Others', path: '/*', redirect: '/home' },
   ],
 });

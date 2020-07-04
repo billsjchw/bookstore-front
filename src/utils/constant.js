@@ -11,6 +11,7 @@ const AuthorityId = {
   BOOK_ADMIN: 1,
   USER_ADMIN: 2,
   ORDER_ADMIN: 3,
+  STAT: 4,
 };
 
 const Misc = {
